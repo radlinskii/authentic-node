@@ -1,0 +1,25 @@
+{
+  "name": "project0",
+  "version": "1.0.0",
+  "description": "node app",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radlinskii/project0.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "radligna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radlinskii/project0/issues"
+  },
+  "homepage": "https://github.com/radlinskii/project0#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
