@@ -4,6 +4,7 @@
   "description": "node app",
   "main": "src/server.js",
   "scripts": {
+    "prestart": "webpack",
     "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +22,12 @@
   },
   "homepage": "https://github.com/radlinskii/project0#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "express": "^4.16.2",
+    "webpack": "^3.11.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1"
   }
 }
