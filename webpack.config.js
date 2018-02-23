@@ -2,10 +2,13 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './lib/index.js',
+  entry: [
+    'babel-polyfill',
+    './lib/index.js',
+  ],
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'app.bundle.js'
+    filename: 'app.bundle.js',
   },
   module: {
     loaders: [
@@ -14,18 +17,18 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['env','react']
-        }
+          presets: ['env','react',],
+        },
       },
       {
         test: /\.css/,
         exclude: /node_modules/,
-        loaders: ['style-loader', 'css-loader'],
-        include: path.resolve(__dirname, 'lib')
-      }
-    ]
+        loaders: ['style-loader', 'css-loader',],
+        include: path.resolve(__dirname, 'lib'),
+      },
+    ],
   },
   stats: {
-    colors: true
-  }
+    colors: true,
+  },
 };
