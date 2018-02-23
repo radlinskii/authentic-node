@@ -16,6 +16,11 @@ module.exports = {
         query: {
           presets: ['env','react']
         }
+      },
+      {
+        test: /\.css/,
+        loaders: ['style-loader', 'css-loader'],
+        include: path.resolve(__dirname, 'lib')
       }
     ]
   },
