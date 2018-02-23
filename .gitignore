@@ -4,4 +4,3 @@ lib
 public/app.bundle.js
 public/app.bundle.js.map
 .eslintrc.json
-public/style.css
