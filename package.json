@@ -4,6 +4,7 @@
   "description": "node app",
   "main": "lib/server.js",
   "scripts": {
+    "postinstall": "node-sass sass/main.sass public/style.css",
     "prestart": "babel src -d lib",
     "start": "webpack",
     "poststart": "node lib/server.js",
@@ -27,10 +28,8 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
-    "css-loader": "^0.28.10",
     "express": "^4.16.2",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "sass-loader": "^6.0.6",
+    "node-sass": "^4.7.2",
     "webpack": "^3.11.0"
   },
   "devDependencies": {
