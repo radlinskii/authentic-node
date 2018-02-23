@@ -15,7 +15,7 @@ class App extends React.Component {
     return Promise.resolve(37);
   }
 
-  async componentDidMount () { //eslint-disable
+  async componentDidMount () {
     this.setState({
       answer: await this.asyncFunction(),
     });
