@@ -1,12 +1,11 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route as Route,
-  Link as Link,
-} from 'react-router-dom';
+import { BrowserRouter, Route, } from 'react-router-dom';
 
-import Home from './Home';
-import About from './About';
+import Home from './pages/Home';
+import About from './pages/About';
+import NavigationBar from './pages/NavigationBar';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 class App extends React.Component {
 
@@ -16,29 +15,16 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         <div className='container app-component'>
-          <nav className='navbar navbar-inverse'>
-            <div>
-              <div className='navbar-header'>
-                <Link className='navbar-brand' to='/'>Spider-Flower</Link>
-              </div>
-              <ul className='nav navbar-nav'>
-                <li><Link to='/'>Home</Link></li>
-                <li><Link to='/about'>About</Link></li>
-              </ul>
-              <ul className='nav navbar-nav navbar-right'>
-                <li><Link to='/login'><span className='fa fa-sign-in'>&nbsp;</span>Login</Link></li>
-                <li><Link to='/register'><span className='fa fa-user-plus'>&nbsp;</span>Register</Link></li>
-              </ul>
-            </div>
-          </nav>
-
+          <NavigationBar/>
 
           <Route exact path='/' component={Home}/>
-          <Route exact path='/about' component={About}/>
+          <Route path='/about' component={About}/>
+          <Route exact path='/login' component={LoginPage}/>
+          <Route exact path='/register' component={RegisterPage}/>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }
