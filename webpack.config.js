@@ -19,6 +19,7 @@ module.exports = {
       },
       {
         test: /\.css/,
+        exclude: /node_modules/,
         loaders: ['style-loader', 'css-loader'],
         include: path.resolve(__dirname, 'lib')
       }
@@ -26,6 +27,5 @@ module.exports = {
   },
   stats: {
     colors: true
-  },
-  devtool: 'source-map'
+  }
 };
