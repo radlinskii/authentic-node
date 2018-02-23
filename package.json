@@ -4,10 +4,8 @@
   "description": "node app",
   "main": "lib/server.js",
   "scripts": {
-    "postinstall": "node-sass sass/main.sass public/style.css",
-    "prestart": "babel src -d lib",
-    "start": "webpack",
-    "poststart": "node lib/server.js",
+    "prestart": "babel src -d lib & node-sass sass/main.sass public/style.css & webpack",
+    "start": "node lib/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
