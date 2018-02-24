@@ -11,7 +11,7 @@ const NavigationBar = () => {
         </div>
         <ul className='nav navbar-nav'>
           <li><Link to='/'><span className='fas fa-home'>&nbsp;</span>Home</Link></li>
-          <li><Link to='/about'><span className='fas fa-poo'>&nbsp;</span>About</Link></li>
+          <li><Link to='/about'><span className='fas fa-info-circle'>&nbsp;</span>About</Link></li>
         </ul>
         <ul className='nav navbar-nav navbar-right'>
           <li><Link to='/login'><span className='fas fa-sign-in-alt'>&nbsp;</span>Login</Link></li>
