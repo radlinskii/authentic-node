@@ -1,30 +1,32 @@
 import React from 'react';
-import { BrowserRouter, Route, } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch,} from 'react-router-dom';
 
+import NavigationBar from './common/NavigationBar';
 import Home from './pages/Home';
 import About from './pages/About';
-import NavigationBar from './NavigationBar';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ToDoPage from './pages/ToDoPage';
 
 class App extends React.Component {
-
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <div className='container app-component'>
           <NavigationBar/>
-
-          <Route exact path='/' component={Home}/>
-          <Route path='/about' component={About}/>
-          <Route exact path='/login' component={LoginPage}/>
-          <Route exact path='/register' component={RegisterPage}/>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path="/about" component={About}/>
+            <Route path="/login" component={LoginPage}/>
+            <Route path="/register" component={RegisterPage}/>
+            <Route path="/todos" component={ToDoPage}/>
+          </Switch>
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
