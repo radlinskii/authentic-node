@@ -1,7 +1,7 @@
 {
-  "name": "project0",
+  "name": "authentic-react",
   "version": "1.0.0",
-  "description": "node app",
+  "description": "node app with react on front and authentication feature",
   "main": "lib/server.js",
   "scripts": {
     "prestart": "babel src -d lib & node-sass sass/main.sass lib/style.css",
@@ -14,7 +14,8 @@
     "url": "git+https://github.com/radlinskii/project0.git"
   },
   "keywords": [
-    "node"
+    "node",
+    "react"
   ],
   "author": "radligna",
   "license": "ISC",
