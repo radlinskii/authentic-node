@@ -1,5 +1,5 @@
 Deployed to Heroku at 
-https://spider-flower.herokuapp.com/
+https://authentic-react.herokuapp.com/
 --
 
 # Build in progress
