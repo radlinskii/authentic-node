@@ -7,11 +7,12 @@ const NavigationBar = () => {
     <nav className='navbar navbar-inverse'>
       <div>
         <div className='navbar-header'>
-          <Link className='navbar-brand' to='/'>Authentic React</Link>
+          <Link className='navbar-brand' to='/'>
+            <span className='fab fa-react'>&nbsp;</span>Authentic React</Link>
         </div>
         <ul className='nav navbar-nav'>
           <li><Link to='/'><span className='fas fa-home'>&nbsp;</span>Home</Link></li>
-          <li><Link to='/about'><span className='fas fa-info-circle'>&nbsp;</span>About</Link></li>
+          <li><Link to='/about'><span className='fa fa-info-circle'>&nbsp;</span>About</Link></li>
         </ul>
         <ul className='nav navbar-nav navbar-right'>
           <li><Link to='/login'><span className='fas fa-sign-in-alt'>&nbsp;</span>Login</Link></li>
