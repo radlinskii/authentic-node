@@ -7,7 +7,7 @@ const NavigationBar = () => {
     <nav className='navbar navbar-inverse'>
       <div>
         <div className='navbar-header'>
-          <Link className='navbar-brand' to='/'>Spider-Flower</Link>
+          <Link className='navbar-brand' to='/'>Authentic React</Link>
         </div>
         <ul className='nav navbar-nav'>
           <li><Link to='/'><span className='fas fa-home'>&nbsp;</span>Home</Link></li>
