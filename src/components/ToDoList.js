@@ -7,6 +7,8 @@ const ToDoList = ({todos, }) => {
       {todos.map(todo =>
         <li className="list-group-item" key={todo.id}>
           {todo.name}
+          {' | '}
+          {todo.age}
         </li>
       )}
     </ul>
