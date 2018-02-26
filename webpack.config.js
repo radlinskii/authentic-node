@@ -2,9 +2,7 @@ const path = require('path');
 const webpack = require('webpack'); //eslint-disable-line no-unused-vars
 
 module.exports = {
-  entry: [
-    './lib/index.js',
-  ],
+  entry: './lib/index.js',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'app.bundle.js',
@@ -16,7 +14,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['env','react',],
+          presets: ['env',],
         },
       },
       {

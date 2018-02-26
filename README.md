@@ -9,14 +9,14 @@ https://authentic-react.herokuapp.com/
 
 this app is using
 --
-* react
-* react-router v4
-* redux
+
+* express
+* ejs
+* mongodb
+* node-sass
 * webpack
 * babel
-* express
-* postgres
-* node-sass
 * npm scripts
+
 
 
