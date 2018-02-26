@@ -4,9 +4,9 @@ import {MongoClient as mongodb,} from 'mongodb';
 
 const router = express.Router();
 
-router.route('signup')
+router.route('/signup')
   .post((req, res) => {
-
+    console.log(req.body);
   });
 
 router.route('/google/callback')
