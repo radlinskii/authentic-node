@@ -3,7 +3,6 @@ const webpack = require('webpack'); //eslint-disable-line no-unused-vars
 
 module.exports = {
   entry: [
-    'babel-polyfill',
     './lib/index.js',
   ],
   output: {

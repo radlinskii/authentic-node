@@ -32,6 +32,13 @@ app.use('/todo', todo);
 app.use('/user', user);
 app.use('/auth', auth);
 
+app.get('/profile', function (req, res, next) {
+  if(!req.user) {
+    res.redirect('/');
+  }
+  next();
+});
+
 app.use(['/','/profile','/register','/about','/todos',], function (req, res) {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });

@@ -11,36 +11,41 @@ module.exports = function () {
     callbackURL: 'http://localhost:8080/auth/google/callback',
   },
   function (req, accessToken, refreshToken, profile, done) {
-    let user = {};
+    if (req.user) {
+      console.log('already logged in');
+    } else {
+      let user = {};
 
-    const client = new Client(config.conString);
-    client.connect()
-      .then(() => {
-        const sql = 'SELECT * FROM users WHERE googleId = ($1);';
-        const params = [profile.id,];
-        return client.query(sql, params);
-      })
-      .then((results) => {
-        if (results.rows.length < 1) {
-          console.log('not-found by google.id');
-          const sql = 'INSERT INTO users (name, googleId) VALUES ($1, $2);';
-          const params = [profile.displayName, profile.id,];
+      const client = new Client(config.conString);
+      client.connect()
+        .then(() => {
+          const sql = 'SELECT * FROM users WHERE googleId = ($1);';
+          const params = [profile.id,];
           return client.query(sql, params);
-        } else {
-          console.log('found by google.id');
-        }
-      }).then(() => {
-        user.name = profile.displayName;
+        })
+        .then((results) => {
+          if (results.rows.length < 1) {
+            console.log('not-found by google.id');
+            const sql = 'INSERT INTO users (name, googleId) VALUES ($1, $2);';
+            const params = [profile.displayName, profile.id,];
+            return client.query(sql, params);
+          } else {
+            console.log('found by google.id');
+          }
+        }).then(() => {
+          user.name = profile.displayName;
 
-        user.google = {};
-        user.google.id = profile.id;
-        user.google.token = accessToken;
+          user.google = {};
+          user.google.id = profile.id;
+          user.google.token = accessToken;
 
-        done(null, user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+          done(null, user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }
+    ,
   ));
 };
