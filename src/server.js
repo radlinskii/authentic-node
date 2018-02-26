@@ -12,7 +12,10 @@ process.env.NODE_ENV = config.NODE_ENV;
 
 const app = express();
 
-//app.use(express.static('public'));
+
+app.use(express.static('public'));
+app.use(express.static('src/views'));
+
 app.use(bodyParser.urlencoded({extended: false,}));
 app.use(session({
   secret: 'anything',
