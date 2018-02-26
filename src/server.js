@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 
 import auth from './routes/auth';
+import todosRouter from './routes/todos';
 
 import passport from './passport';
 
@@ -35,44 +36,20 @@ app.listen(config.port, (err) => {
 });
 
 app.use('/auth', auth);
-
-const todoRouter = express.Router();
-
-let todos = [
-  {
-    title: 'learn how to manage time',
-    author: 'ignac',
-  },
-  {
-    title: 'CRACKING THE CODING INTERVIEW',
-    author: 'aga',
-  },
-];
-
-todoRouter.route('/')
-  .get((req, res) => {
-    res.render('todos', {todos: todos,});
-  });
-
-todoRouter.route('/single')
-  .get((req, res) => {
-    res.send('Hello single todo');
-  });
-
-app.use('/todos', todoRouter);
+app.use('/todos', todosRouter);
 
 const aboutRouter = express.Router();
 
 aboutRouter.route('')
   .get((req, res) => {
-    res.render('about');
+    res.render('about', {title: 'about',});
   });
 
 app.use('/about', aboutRouter);
 
 app.get('/', (req, res) => {
   res.render('index', {
-    title: 'Hello from render',
+    title: 'Authentic Node',
   },
   );
 });

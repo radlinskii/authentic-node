@@ -6,25 +6,21 @@
 
     <div class="jumbotron">
         <h1>
-            todo list
+            <%=title%>
         </h1>
     </div>
     <% for(let i = 0; i < todos.length; i++){ %>
-    <div class="row">
+    <div class="row" style="color: darkgray; margin: 0; background-color: #222222; margin-bottom: 40px;">
         <br/>
-        <div class="col-md-10 text-center">
+        <div class="col-md-9 text-left">
             <h2><%= todos[i].title %></h2>
-            <div class="row">
-                <div class="col-xs-9">
-                    <h4><span class="label label-default"><%= todos[i].author %></span></h4>
-                    <small class="text-muted"><a href="<%= i %>">view To Do</a></small>
-                </div>
-                <div class="col-xs-3">
-                </div>
-            </div>
         </div>
-        <% } %>
+        <div class="col-md-3 text-center">
+            <h4 style="display: inline-block"><span class="label label-default"><%= todos[i].author %></span></h4>
+            <small class="text-muted"><a href="<%= i %>">view To Do</a></small>
+        </div>
     </div>
+    <% } %>
 </div>
 
 <%- include common/footer.ejs %>
