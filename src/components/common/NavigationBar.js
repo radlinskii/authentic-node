@@ -12,6 +12,7 @@ const NavigationBar = () => {
         </div>
         <ul className='nav navbar-nav'>
           <li><Link to='/about' activeclassname='active'><span className='fa fa-info-circle'>&nbsp;</span>About</Link></li>
+          <li><Link to='/profile' activeclassname='active'><span className='fas fa-user'>&nbsp;</span>Profile</Link></li>
           <li><Link to='/todos' activeclassname='active'><span className='fas fa-tasks'>&nbsp;</span>ToDos</Link></li>
         </ul>
         <ul className='nav navbar-nav navbar-right'>

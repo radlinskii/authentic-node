@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ToDoList = ({todos, }) => {
+const ToDosList = ({todos, }) => {
   return (
     <ul className="list-group">
       {todos.map(todo =>
@@ -15,8 +15,8 @@ const ToDoList = ({todos, }) => {
   );
 };
 
-ToDoList.propTypes = {
+ToDosList.propTypes = {
   todos: PropTypes.array.isRequired,
 };
 
-export default ToDoList;
+export default ToDosList;
