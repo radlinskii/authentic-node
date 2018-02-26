@@ -12,6 +12,7 @@ this app is using
 
 * express
 * ejs
+* mongodb
 * node-sass
 * babel
 * npm scripts
