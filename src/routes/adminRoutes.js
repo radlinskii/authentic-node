@@ -17,7 +17,7 @@ let todos = [
 let todo = todos[0];
 adminRouter.route('/addTodos')
   .get((req, res) => {
-    const url = 'mongodb://radlinskii:17MB91mozambik@ds249128.mlab.com:49128/authentic-db';
+    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
 
     mongodb.connect(url, (err, db) => {
       if(err) console.log(err);

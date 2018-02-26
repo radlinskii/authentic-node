@@ -17,11 +17,12 @@ process.env.NODE_ENV = config.NODE_ENV;
 const app = express();
 
 app.use(express.static('public'));
-app.set('views', './src/views');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
+app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: false,}));
 app.use(session({
   secret: 'anything',
   resave: true,

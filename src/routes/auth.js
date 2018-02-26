@@ -1,7 +1,13 @@
 import express from 'express';
 import passport from 'passport';
+import {MongoClient as mongodb,} from 'mongodb';
 
 const router = express.Router();
+
+router.route('signup')
+  .post((req, res) => {
+
+  });
 
 router.route('/google/callback')
   .get(passport.authenticate('google', {

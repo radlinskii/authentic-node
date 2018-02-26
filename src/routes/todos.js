@@ -7,7 +7,7 @@ const todoRouter = express.Router();
 
 todoRouter.route('/')
   .get((req, res) => {
-    const url = 'mongodb://radlinskii:17MB91mozambik@ds249128.mlab.com:49128/';
+    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
 
     mongodb.connect(url, (err, db) => {
       if (err) console.log(err);
@@ -21,9 +21,7 @@ todoRouter.route('/')
 todoRouter.route('/:id')
   .get((req, res) => {
     const id = new objectId(req.params.id);
-    const url = 'mongodb://radlinskii:17MB91mozambik@ds249128.mlab.com:49128/';
-
-
+    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
     mongodb.connect(url, (err, db) => {
       if (err) console.log(err);
       const dbo = db.db('authentic-db');
