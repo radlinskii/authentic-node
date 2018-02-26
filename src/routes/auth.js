@@ -7,6 +7,29 @@ const router = express.Router();
 router.route('/signup')
   .post((req, res) => {
     console.log(req.body);
+    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+
+    mongodb.connect(url, (err, db) => {
+      if(err) console.log(err);
+      const dbo = db.db('authentic-db');
+      const user = {
+        username: req.body.username,
+        password: req.body.password,
+      };
+      dbo.collection('users').insertOne(user, (err, results) => {
+        if(err) throw err;
+        req.login(results.ops[0], () => {
+          res.redirect('/auth/profile');
+        });
+        db.close();
+      });
+    });
+
+  });
+
+router.route('/profile')
+  .get((req, res) => {
+    res.json(req.user);
   });
 
 router.route('/google/callback')
