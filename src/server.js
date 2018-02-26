@@ -36,6 +36,32 @@ app.listen(config.port, (err) => {
 
 app.use('/auth', auth);
 
-app.get('/o', (req, res) => {
-  res.render('index', {title: 'Hello from render', list: ['a', 'b',],});
+const todoRouter = express.Router();
+
+todoRouter.route('/')
+  .get((req, res) => {
+    res.render('todos');
+  });
+
+todoRouter.route('/single')
+  .get((req, res) => {
+    res.send('Hello single todo');
+  });
+
+app.use('/todos', todoRouter);
+
+const aboutRouter = express.Router();
+
+aboutRouter.route('')
+  .get((req, res) => {
+    res.render('about');
+  });
+
+app.use('/about', aboutRouter);
+
+app.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Hello from render',
+  },
+  );
 });
