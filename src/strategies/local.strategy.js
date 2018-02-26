@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import passport from 'passport';
 import {Strategy as LocalStrategy,} from 'passport-local';
+import {MongoClient as mongodb,} from 'mongodb';
 
 module.exports = () => {
   passport.use(new LocalStrategy({
@@ -7,10 +9,17 @@ module.exports = () => {
     passwordField: 'password',
   },
   (username, password, done) => {
-    let user = {
-      username: username,
-      password: password,
-    };
-    done(null, user);
+    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+
+    mongodb.connect(url, (err, db) => {
+      if(err) console.log('strategy local' + err);
+      const dbo = db.db('authentic-db');
+      dbo.collection('users').findOne({username: username,}, (error, user) => {
+        if (error) { return done(error); }
+        if (!user) { return done(null, false); }
+        if (user.password !== password) { return done(null, false); }
+        return done(null, user);
+      });
+    });
   }));
 };

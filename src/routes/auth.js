@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import express from 'express';
 import passport from 'passport';
 import {MongoClient as mongodb,} from 'mongodb';
@@ -6,11 +7,10 @@ const router = express.Router();
 
 router.route('/signup')
   .post((req, res) => {
-    console.log(req.body);
     const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
 
     mongodb.connect(url, (err, db) => {
-      if(err) console.log(err);
+      if(err) console.log('/signup' + err);
       const dbo = db.db('authentic-db');
       const user = {
         username: req.body.username,
@@ -27,14 +27,22 @@ router.route('/signup')
 
   });
 
+router.route('/signin')
+  .post((req, res) => passport.authenticate('local',
+    { successRedirect: '/auth/profile', failureRedirect: '/', })(req, res));
+
 router.route('/profile')
+  .all((req, res, next) => {
+    if(!req.isAuthenticated()) res.redirect('/');
+    next();
+  })
   .get((req, res) => {
     res.json(req.user);
   });
 
 router.route('/google/callback')
   .get(passport.authenticate('google', {
-    successRedirect: '/profile', //changeme
+    successRedirect: '/profile',
     failure: '/error/',
   }));
 
