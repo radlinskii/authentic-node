@@ -21,7 +21,7 @@ todoRouter.route('/')
 todoRouter.route('/:id')
   .get((req, res) => {
     let id = req.params.id;
-    res.render('todos',{title: 'todos', todo: todos[id],});
+    res.render('todo',{title: todos[id].title, todo: todos[id],});
   });
 
 module.exports = todoRouter;

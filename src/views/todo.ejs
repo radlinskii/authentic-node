@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentic React</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="../style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <%- include common/navbar.ejs %>
+
+    <div class="jumbotron">
+        <h1>
+            <%=title%>
+        </h1>
+    </div>
+
+    <div class="row" style="color: darkgray; margin: 0; background-color: #222222; margin-bottom: 40px;">
+        <br/>
+        <div class="col-md-9 text-left">
+            <h2><%= todo.title %></h2>
+        </div>
+        <div class="col-md-3 text-center">
+            <h4 style="display: inline-block"><span class="label label-default"><%= todo.author %></span></h4>
+        </div>
+    </div>
+</div>
+
+<%- include common/footer.ejs %>
