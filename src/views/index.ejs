@@ -1,14 +1,22 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Authentic React</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 </head>
 <body>
- <h1>
-     <%=title%>
- </h1>
+<div class="jumbotron">
+    <h1>
+        <%= title %> in EJS
+    </h1>
+</div>
 <ul>
     <% for(let i = 0; i < list.length; i++){ %>
-        <li><%=list[i]%></li>
-    <%}%>
+    <li><%= list[i] %> <i class="fa fa-rocket"></i></li>
+    <% } %>
 </ul>
 </body>
 </html>
