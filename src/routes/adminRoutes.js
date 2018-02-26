@@ -7,7 +7,7 @@ const adminRouter = express.Router();
 let todos = [
   {
     title: 'learn how to manage time',
-    author: 'ignac',
+    author: 'ignacy',
   },
   {
     title: 'CRACKING THE CODING INTERVIEW',
@@ -17,15 +17,14 @@ let todos = [
 let todo = todos[0];
 adminRouter.route('/addTodos')
   .get((req, res) => {
-    const url = 'mongodb://127.0.0.1:27017/';
+    const url = 'mongodb://radlinskii:17MB91mozambik@ds249128.mlab.com:49128/authentic-db';
 
     mongodb.connect(url, (err, db) => {
       if(err) console.log(err);
-      const dbo = db.db('todoapp');
+      const dbo = db.db('authentic-db');
       dbo.collection('todos').insertOne(todo, (err, results) => {
         if(err) throw err;
-        console.log(results);
-        res.send(results);
+        res.redirect('/');
         db.close();
       });
     });
