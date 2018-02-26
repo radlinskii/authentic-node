@@ -14,7 +14,9 @@ const app = express();
 
 
 app.use(express.static('public'));
-app.use(express.static('src/views'));
+app.set('views', './src/views');
+
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended: false,}));
 app.use(session({
@@ -34,6 +36,6 @@ app.listen(config.port, (err) => {
 
 app.use('/auth', auth);
 
-app.get('/', (req, res) => {
-  res.send('hello');
+app.get('/o', (req, res) => {
+  res.render('index', {title: 'Hello from render', list: ['a', 'b',],});
 });
