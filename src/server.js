@@ -38,9 +38,20 @@ app.use('/auth', auth);
 
 const todoRouter = express.Router();
 
+let todos = [
+  {
+    title: 'learn how to manage time',
+    author: 'ignac',
+  },
+  {
+    title: 'CRACKING THE CODING INTERVIEW',
+    author: 'aga',
+  },
+];
+
 todoRouter.route('/')
   .get((req, res) => {
-    res.render('todos');
+    res.render('todos', {todos: todos,});
   });
 
 todoRouter.route('/single')

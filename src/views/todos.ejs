@@ -1,14 +1,30 @@
 <%- include common/header.ejs %>
 
 <div class="container">
+
+    <%- include common/navbar.ejs %>
+
     <div class="jumbotron">
         <h1>
-            todos
+            todo list
         </h1>
     </div>
-    <ul>
-
-    </ul>
+    <% for(let i = 0; i < todos.length; i++){ %>
+    <div class="row">
+        <br/>
+        <div class="col-md-10 text-center">
+            <h2><%= todos[i].title %></h2>
+            <div class="row">
+                <div class="col-xs-9">
+                    <h4><span class="label label-default"><%= todos[i].author %></span></h4>
+                    <small class="text-muted"><a href="<%= i %>">view To Do</a></small>
+                </div>
+                <div class="col-xs-3">
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
 </div>
 
 <%- include common/footer.ejs %>
