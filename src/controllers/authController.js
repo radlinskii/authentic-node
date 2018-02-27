@@ -9,22 +9,26 @@ const authController = (todoService) => {
   };
 
   const postUser = (req, res) => {
-    let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
-    mongodb.connect(url, (err, db) => {
-      if(err) console.log('/signup' + err);
-      const dbo = db.db('authentic-db');
-      const user = {
-        username: req.body.username,
-        password: req.body.password,
-      };
-      dbo.collection('users').insertOne(user, (err, results) => {
-        if(err) throw err;
-        req.login(results.ops[0], () => {
-          res.redirect('/auth/profile');
+    if(req.body.password === req.body.repeatedPassword) {
+      let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+      mongodb.connect(url, (err, db) => {
+        if (err) console.log('/signup' + err);
+        const dbo = db.db('authentic-db');
+        const user = {
+          username: req.body.username,
+          password: req.body.password,
+        };
+        dbo.collection('users').insertOne(user, (err, results) => {
+          if (err) throw err;
+          req.login(results.ops[0], () => {
+            res.redirect('/auth/profile');
+          });
+          db.close();
         });
-        db.close();
       });
-    });
+    } else {
+      res.redirect('/?passwords=mismatch');
+    }
   };
 
   const postProfile = (req, res) => passport.authenticate('local',
