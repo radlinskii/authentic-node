@@ -11,9 +11,10 @@ this app is using
 --
 
 * express
+* passport
 * mongodb
-* mongoose
-* oauth
+* mongoose *
+* oauth*
 * bcrypt
 * ejs
 * node-sass
