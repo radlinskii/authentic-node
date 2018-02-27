@@ -10,7 +10,7 @@ const authController = () => {
 
   const postUser = (req, res) => {
     if(req.body.password === req.body.repeatedPassword) {
-      let url = 'mongodb://@localhost:27017/authentic-db;'; //'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+      let url ='mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db'; //'mongodb://@localhost:27017/authentic-db;';
       mongodb.connect(url, (err, db) => {
         if (err) console.log('/signup' + err);
         const dbo = db.db('authentic-db');

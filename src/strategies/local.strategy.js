@@ -9,7 +9,7 @@ module.exports = () => {
     passwordField: 'password',
   },
   (username, password, done) => {
-    const url = 'mongodb://@localhost:27017/authentic-db;'; // 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';// 'mongodb://@localhost:27017/authentic-db;';
 
     mongodb.connect(url, (err, db) => {
       if(err) console.log('strategy local' + err);

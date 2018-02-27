@@ -8,7 +8,7 @@ const todoController = () => {
   };
 
   const getIndex = (req, res) => {
-    let url = 'mongodb://@localhost:27017/authentic-db;'; //'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+    let url ='mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';// 'mongodb://@localhost:27017/authentic-db;';
     mongodb.connect(url, (err, db) => {
       if (err) console.log('todos/' + err);
       const dbo = db.db('authentic-db');
@@ -20,7 +20,7 @@ const todoController = () => {
 
   const getById = (req, res) => {
     const id = new ObjectId(req.params.id);
-    let url = 'mongodb://@localhost:27017/authentic-db;'; // 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+    let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';// 'mongodb://@localhost:27017/authentic-db;';
     mongodb.connect(url, (err, db) => {
       if (err) console.log(err);
       const dbo = db.db('authentic-db');
