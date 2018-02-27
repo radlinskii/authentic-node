@@ -4,11 +4,6 @@
 
     <%- include common/navbar.ejs %>
 
-    <div class="jumbotron">
-        <h1>
-            <%= title %>
-        </h1>
-    </div>
     <div class="row">
         <div class="col-md-7">
             <% for(let i = 0; i < todos.length; i++){ %>
@@ -28,8 +23,8 @@
         <div class="col-md-5">
             Add a To Do Task
             <form name="addTodoForm" action="/todos/add" method="post">
-                <br/><input name="todoInput"><br/>
-                <input type="submit" value="Sign Up">
+                <input name="todoInput"><br/>
+                <input type="submit" value="Add">
             </form>
         </div>
     </div>

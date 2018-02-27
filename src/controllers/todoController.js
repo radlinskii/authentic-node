@@ -24,8 +24,8 @@ const todoController = () => {
     mongodb.connect(url, (err, db) => {
       if (err) console.log(err);
       const dbo = db.db('authentic-db');
-      dbo.collection('todos').findOne({_id: id,}, (err, results) => {
-        res.render('todo', {title: 'single todo', todo: results, isLoggedIn: req.isAuthenticated(),});
+      dbo.collection('todos').findOne({_id: id,}, (err, result) => {
+        res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
       });
     });
   };

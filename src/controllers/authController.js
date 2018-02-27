@@ -21,17 +21,22 @@ const authController = () => {
             username: req.body.username,
             password: hash,
           };
-          dbo.collection('users').insertOne(user, (err, results) => {
-            if (err) throw err;
-            req.login(results.ops[0], () => {
-              res.redirect('/');
-            });
-            db.close();
+          dbo.collection('users').findOne({username: req.body.username,}, (err, result) => {
+            if(result) res.redirect('/?error=username%20in%20use');
+            else {
+              dbo.collection('users').insertOne(user, (err, results) => {
+                if (err) throw err;
+                req.login(results.ops[0], () => {
+                  res.redirect('/');
+                });
+                db.close();
+              });
+            }
           });
         });
       });
     } else {
-      res.redirect('/?passwords=mismatch');
+      res.redirect('/?passwords=missmatch');
     }
   };
 
