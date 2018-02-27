@@ -1,44 +1,19 @@
 /* eslint-disable no-console */
 import express from 'express';
 import passport from 'passport';
-import {MongoClient as mongodb,} from 'mongodb';
+import authController from '../controllers/authController';
 
 const router = express.Router();
 
 router.route('/signup')
-  .post((req, res) => {
-    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
-
-    mongodb.connect(url, (err, db) => {
-      if(err) console.log('/signup' + err);
-      const dbo = db.db('authentic-db');
-      const user = {
-        username: req.body.username,
-        password: req.body.password,
-      };
-      dbo.collection('users').insertOne(user, (err, results) => {
-        if(err) throw err;
-        req.login(results.ops[0], () => {
-          res.redirect('/auth/profile');
-        });
-        db.close();
-      });
-    });
-
-  });
+  .post(authController(null).postUser);
 
 router.route('/signin')
-  .post((req, res) => passport.authenticate('local',
-    { successRedirect: '/auth/profile', failureRedirect: '/', })(req, res));
+  .post(authController(null).postProfile);
 
 router.route('/profile')
-  .all((req, res, next) => {
-    if(!req.isAuthenticated()) res.redirect('/');
-    next();
-  })
-  .get((req, res) => {
-    res.json(req.user);
-  });
+  .all(authController(null).middleware)
+  .get(authController(null).getProfile);
 
 router.route('/google/callback')
   .get(passport.authenticate('google', {

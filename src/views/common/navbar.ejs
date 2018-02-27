@@ -5,7 +5,9 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
+            <%if(isLoggedIn){%>
             <li><a href="todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
+            <%}%>
         </ul>
     </div>
 </nav>

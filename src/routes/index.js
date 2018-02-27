@@ -6,6 +6,7 @@ indexRouter.route('')
   .get((req, res) => {
     res.render('index', {
       title: 'Authentic Node',
+      isLoggedIn: req.isAuthenticated(),
     },
     );
   });
