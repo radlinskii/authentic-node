@@ -6,21 +6,33 @@
 
     <div class="jumbotron">
         <h1>
-            <%=title%>
+            <%= title %>
         </h1>
     </div>
-    <% for(let i = 0; i < todos.length; i++){ %>
-    <div class="row" style="color: darkgray; margin: 0; background-color: #222222; margin-bottom: 40px;">
-        <br/>
-        <div class="col-md-9 text-left">
-            <h2><%= todos[i].title %></h2>
+    <div class="row">
+        <div class="col-md-7">
+            <% for(let i = 0; i < todos.length; i++){ %>
+            <div class="row todo">
+                <br/>
+                <div class="col-md-5 text-left">
+                    <h2><%= todos[i].content %></h2>
+                </div>
+                <div class="col-md-2 text-center">
+                    <span class="label label-default"><%= todos[i].author %></span>
+                    <span class="label label-default"><%= todos[i].date %></span>
+                    <small class="text-muted"><a href="/todos/<%= todos[i]._id %>">view To Do</a></small>
+                </div>
+            </div>
+            <% } %>
         </div>
-        <div class="col-md-3 text-center">
-            <h4 style="display: inline-block"><span class="label label-default"><%= todos[i].author %></span></h4>
-            <small class="text-muted"><a href="/todos/<%=todos[i]._id%>">view To Do</a></small>
+        <div class="col-md-5">
+            Add a To Do Task
+            <form name="addTodoForm" action="/todos/add" method="post">
+                <br/><input name="todoInput"><br/>
+                <input type="submit" value="Sign Up">
+            </form>
         </div>
     </div>
-    <% } %>
 </div>
 
 <%- include common/footer.ejs %>

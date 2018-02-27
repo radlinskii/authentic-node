@@ -19,7 +19,10 @@
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="../about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
+                <%if(isLoggedIn){%>
                 <li><a href="../todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
+                <li><a href="../auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a></li>
+                <%}%>
             </ul>
         </div>
     </nav>
@@ -30,13 +33,13 @@
         </h1>
     </div>
 
-    <div class="row" style="color: darkgray; margin: 0; background-color: #222222; margin-bottom: 40px;">
+    <div class="row todo">
         <br/>
         <div class="col-md-9 text-left">
             <h2><%= todo.title %></h2>
         </div>
         <div class="col-md-3 text-center">
-            <h4 style="display: inline-block"><span class="label label-default"><%= todo.author %></span></h4>
+            <span class="label label-default"><%= todo.author %></span>
         </div>
     </div>
 </div>

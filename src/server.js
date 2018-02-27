@@ -9,7 +9,6 @@ import auth from './routes/auth';
 import indexRouter from './routes/index';
 import todosRouter from './routes/todos';
 import aboutRouter from './routes/about';
-import adminRouter from './routes/adminRoutes';
 
 import passportjs from './config/passport';
 
@@ -41,5 +40,4 @@ app.listen(config.port, (err) => {
 app.use('/auth', auth);
 app.use('/todos', todosRouter);
 app.use('/about', aboutRouter);
-app.use('/admin', adminRouter);
 app.use('/', indexRouter);
