@@ -12,7 +12,7 @@ const todoController = () => {
     mongodb.connect(url, (err, db) => {
       if (err) console.log('todos/' + err);
       const dbo = db.db('authentic-db');
-      dbo.collection('todos').find({author: req.user.username,}).toArray((err, results) => {
+      dbo.collection('todos').find({author: req.user._id,}).toArray((err, results) => {
         res.render('todos', {title: 'todos', todos: results, isLoggedIn: req.isAuthenticated(),});
       });
     });
@@ -36,7 +36,8 @@ const todoController = () => {
     let d = new Date();
     let dates = addZeros(d.getHours()) + ':' + addZeros(d.getMinutes()) + ' ' + addZeros(d.getDate())  + '.' + addZeros(d.getMonth()) + '.'+ d.getFullYear();
     let todo = {
-      author: req.user.username,
+      author: req.user._id,
+      authorUsername: req.user.username,
       content: req.body.todoInput,
       date: dates,
     };

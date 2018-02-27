@@ -5,24 +5,24 @@ import * as bcrypt from 'bcrypt';
 
 const authController = () => {
   const middleware = (req, res, next) => {
-    if(!req.isAuthenticated()) res.redirect('/');
+    if (!req.isAuthenticated()) res.redirect('/');
     else next();
   };
 
   const postRegister = (req, res) => {
-    if(req.body.password === req.body.repeatedPassword) {
-      let url ='mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db'; //'mongodb://@localhost:27017/authentic-db;';
+    if ((req.body.password === req.body.repeatedPassword)) {
+      let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db'; //'mongodb://@localhost:27017/authentic-db;';
       mongodb.connect(url, (err, db) => {
         if (err) console.log('/signup' + err);
         const dbo = db.db('authentic-db');
 
-        bcrypt.hash(req.body.password, 10).then(function(hash) {
+        bcrypt.hash(req.body.password, 10).then(function (hash) {
           let user = {
             username: req.body.username,
             password: hash,
           };
           dbo.collection('users').findOne({username: req.body.username,}, (err, result) => {
-            if(result) res.redirect('/?error=username%20in%20use');
+            if (result) res.redirect('/?error=username%20already%20in%20use');
             else {
               dbo.collection('users').insertOne(user, (err, results) => {
                 if (err) throw err;
@@ -36,12 +36,12 @@ const authController = () => {
         });
       });
     } else {
-      res.redirect('/?passwords=missmatch');
+      res.redirect('/?error=passwords%20mismatch');
     }
   };
 
   const postLogin = (req, res) => passport.authenticate('local',
-    { successRedirect: '/', failureRedirect: '/?error=wrong%20credentials', })(req, res);
+    {successRedirect: '/', failureRedirect: '/?error=wrong%20credentials',})(req, res);
 
   const getProfile = (req, res) => {
     res.json(req.user);

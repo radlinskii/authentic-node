@@ -10,17 +10,17 @@
         <div class="col-md-4 col-sm-4 text-center">
             Sign In
             <form name="signInForm" action="/auth/signin" method="post">
-                User Name:<br/> <input name="username"><br/>
-                Password:<br/><input type="password" name="password"><br/>
+                Username<br/> <input type="text" name="username" placeholder="username" minlength="6" maxlength="16" required><br/>
+                Password:<br/><input type="password" name="password" placeholder="password" minlength="6" maxlength="16" required><br/>
                 <input type="submit" value="Sign In">
             </form>
         </div>
         <div class="col-md-4 col-sm-4 text-center">
             Sign Up
             <form name="signUpForm" action="/auth/signup" method="post">
-                User Name:<br/><input name="username"><br/>
-                Password:<br/><input type="password" name="password"><br/>
-                Repeat Password:<br/><input type="password" name="repeatedPassword"><br/>
+                Username:<br/><input type="text" name="username" placeholder="username" minlength="6" maxlength="16" required><br/>
+                Password:<br/><input type="password" name="password" placeholder="password" minlength="6" maxlength="16" required><br/>
+                Repeat Password:<br/><input type="password" name="repeatedPassword" placeholder="password" minlength="6" maxlength="16" required><br/>
                 <input type="submit" value="Sign Up">
             </form>
         </div>

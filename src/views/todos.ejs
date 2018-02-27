@@ -13,7 +13,7 @@
                     <h2><%= todos[i].content %></h2>
                 </div>
                 <div class="col-md-2 text-center">
-                    <span class="label label-default"><%= todos[i].author %></span>
+                    <span class="label label-default"><%= todos[i].authorUsername %></span>
                     <span class="label label-default"><%= todos[i].date %></span>
                     <small class="text-muted"><a href="/todos/<%= todos[i]._id %>">view To Do</a></small>
                 </div>
@@ -23,7 +23,7 @@
         <div class="col-md-5">
             Add a To Do Task
             <form name="addTodoForm" action="/todos/add" method="post">
-                <input name="todoInput"><br/>
+                <textarea name="todoInput" placeholder="e.g. Take out the garbage." minlength="1" maxlength="256" required></textarea><br/>
                 <input type="submit" value="Add">
             </form>
         </div>
