@@ -30,8 +30,13 @@
             </form>
         </div>
     </div>
+    <%} else {%>
+        <div class="row text-center">
+            <h3>
+                Hello <%=username%>
+            </h3>
+        </div>
     <%}%>
-
 </div>
 
 <%- include common/footer.ejs %>
