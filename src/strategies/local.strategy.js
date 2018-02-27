@@ -2,6 +2,7 @@
 import passport from 'passport';
 import {Strategy as LocalStrategy,} from 'passport-local';
 import {MongoClient as mongodb,} from 'mongodb';
+import * as bcrypt from 'bcrypt';
 
 module.exports = () => {
   passport.use(new LocalStrategy({
@@ -17,8 +18,10 @@ module.exports = () => {
       dbo.collection('users').findOne({username: username,}, (error, user) => {
         if (error) { return done(error); }
         if (!user) { return done(null, false); }
-        if (user.password !== password) { return done(null, false); }
-        return done(null, user);
+        bcrypt.compare(password, user.password, function(err, res) {
+          if(res === true) return done(null, user);
+          else return done(null, false);
+        });
       });
     });
   }));

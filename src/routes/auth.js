@@ -6,10 +6,10 @@ import authController from '../controllers/authController';
 const router = express.Router();
 
 router.route('/signup')
-  .post(authController().postUser);
+  .post(authController().postRegister);
 
 router.route('/signin')
-  .post(authController().postProfile);
+  .post(authController().postLogin);
 
 router.route('/logout')
   .get(authController().logout);
