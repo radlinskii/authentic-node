@@ -11,6 +11,9 @@ router.route('/signup')
 router.route('/signin')
   .post(authController(null).postProfile);
 
+router.route('/logout')
+  .get(authController(null).logout);
+
 router.route('/profile')
   .all(authController(null).middleware)
   .get(authController(null).getProfile);

@@ -4,7 +4,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-import passport from 'passport';
 
 import auth from './routes/auth';
 import indexRouter from './routes/index';
@@ -20,11 +19,11 @@ const app = express();
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false,}));
 app.use(cookieParser());
 app.use(session({
   secret: 'anything',
-  resave: true,
+  resave: false,
   saveUninitialized: true,
 }));
 passportjs(app);

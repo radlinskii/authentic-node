@@ -1,6 +1,6 @@
 import passport from 'passport';
 
-export default function (app) {
+export default (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -15,4 +15,4 @@ export default function (app) {
   require('../strategies/local.strategy')();
   require('../strategies/google.strategy')();
   require('../strategies/facebook.strategy')();
-}
+};

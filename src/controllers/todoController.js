@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 import {MongoClient as mongodb, ObjectID as ObjectId,} from 'mongodb';
 
-const todoController = (todoService) => {
+const todoController = () => {
   const middleware = (req, res, next) => {
     if(!req.isAuthenticated()) res.redirect('/');
     else next();
   };
 
   const getIndex = (req, res) => {
-    let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+    let url = 'mongodb://@localhost:27017/authentic-db;'; //'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
     mongodb.connect(url, (err, db) => {
       if (err) console.log('todos/' + err);
       const dbo = db.db('authentic-db');
@@ -20,7 +20,7 @@ const todoController = (todoService) => {
 
   const getById = (req, res) => {
     const id = new ObjectId(req.params.id);
-    let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
+    let url = 'mongodb://@localhost:27017/authentic-db;'; // 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
     mongodb.connect(url, (err, db) => {
       if (err) console.log(err);
       const dbo = db.db('authentic-db');
