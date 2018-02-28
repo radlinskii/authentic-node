@@ -10,7 +10,7 @@ const todoController = () => {
   const getIndex = (req, res) => {
     let url ='mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';// 'mongodb://@localhost:27017/authentic-db;';
     mongodb.connect(url, (err, db) => {
-      if (err) console.log('todos/' + err);
+      if (err) console.error(`todos/  ${err}`);
       const dbo = db.db('authentic-db');
       dbo.collection('todos').find({author: req.user._id,}).toArray((err, results) => {
         res.render('todos', {title: 'todos', todos: results, isLoggedIn: req.isAuthenticated(),});
@@ -22,11 +22,11 @@ const todoController = () => {
     const id = new ObjectId(req.params.id);
     let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';// 'mongodb://@localhost:27017/authentic-db;';
     mongodb.connect(url, (err, db) => {
-      if (err) console.log(err);
+      if (err) console.error(`todo/:id ${err}`);
       const dbo = db.db('authentic-db');
       dbo.collection('todos').findOne({_id: id,}, (err, result) => {
         if(result.author === req.user._id) res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
-        else res.redirect('/?error=permission%20denied');
+        else res.redirect(`/?error=${encodeURI('permission denied')}`);
       });
     });
   };
@@ -44,7 +44,7 @@ const todoController = () => {
     };
     const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
     mongodb.connect(url, (err, db) => {
-      if(err) console.log(err);
+      if(err) console.error(`post todo ${err}`);
       const dbo = db.db('authentic-db');
       dbo.collection('todos').insertOne(todo, (err, results) => { //eslint-disable-line
         if(err) throw err;

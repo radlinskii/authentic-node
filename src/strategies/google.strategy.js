@@ -9,6 +9,6 @@ module.exports = () => {
     callbackURL: 'http://localhost:8080/auth/google/callback',
   },
   (req, accessToken, refreshToken, profile, done) => {
-    console.log('gg');
+    console.info('gg');
   }));
 };

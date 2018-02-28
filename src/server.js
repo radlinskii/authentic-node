@@ -16,7 +16,10 @@ import mongoose from 'mongoose';
 process.env.NODE_ENV = config.NODE_ENV;
 
 const app = express();
-mongoose.connect('mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db');
+mongoose.connect(`mongodb://${config.dbUser}:${config.dbPassword}@${config.dbHost}:${config.dbPort}/${config.dbName}`).then(
+  () => { console.info(`connected to ${config.dbName}`); },
+  err => { console.error(err); }
+);
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -35,7 +38,7 @@ app.set('view engine', 'ejs');
 
 
 app.listen(config.port, (err) => {
-  if (err) console.log(err);
+  if (err) console.error(err);
   else console.info(`${process.env.NODE_ENV} Running on ${config.port}`);
 });
 

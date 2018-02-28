@@ -12,9 +12,9 @@ const authController = () => {
 
   const postRegister = (req, res) => {
     if ((req.body.password === req.body.repeatedPassword)) {
-      bcrypt.hash(req.body.password, 10).then(function (hash) {
+      bcrypt.hash(req.body.password, 10).then((hash) => {
         User.findOne({username: req.body.username,}, (err, result) => {
-          if (result) res.redirect('/?error=username%20already%20in%20use');
+          if (result) res.redirect(`/?error=${encodeURI('username already in use')}`);
           else {
             const user = new User({
               _id: new mongoose.Types.ObjectId(),
@@ -36,7 +36,7 @@ const authController = () => {
   };
 
   const postLogin = (req, res) => passport.authenticate('local',
-    {successRedirect: '/', failureRedirect: '/?error=wrong%20credentials',})(req, res);
+    {successRedirect: '/', failureRedirect: `/?error=${encodeURI('wrong credentials')}`,})(req, res);
 
   const logout = (req, res) => {
     req.logout();

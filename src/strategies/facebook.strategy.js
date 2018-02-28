@@ -10,7 +10,7 @@ module.exports =  () => {
     passReqToCallback: true,
   },
   (req, accessToken, refreshToken, profile, done) => {
-    console.log('ff');
+    console.info('ff');
   }));
 };
 

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import todos from './todo.model';
 
 const userSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
