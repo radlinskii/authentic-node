@@ -10,13 +10,13 @@ import indexRouter from './routes/index';
 import todosRouter from './routes/todos';
 import aboutRouter from './routes/about';
 
-import passportjs from './config/passport';
+import passport from './config/passport';
 import mongoose from 'mongoose';
 
 process.env.NODE_ENV = config.NODE_ENV;
 
-mongoose.connect('mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db');
 const app = express();
+mongoose.connect('mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -27,7 +27,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
-passportjs(app);
+passport(app);
 
 app.set('views', './src/views');
 app.set('view engine', 'ejs');

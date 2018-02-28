@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import {MongoClient as mongodb,} from 'mongodb';
+import mongoose from 'mongoose';
 import passport from 'passport/lib/index';
 import * as bcrypt from 'bcrypt';
+import User from '../models/user.model';
 
 const authController = () => {
   const middleware = (req, res, next) => {
@@ -11,28 +12,22 @@ const authController = () => {
 
   const postRegister = (req, res) => {
     if ((req.body.password === req.body.repeatedPassword)) {
-      let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db'; //'mongodb://@localhost:27017/authentic-db;';
-      mongodb.connect(url, (err, db) => {
-        if (err) console.log('/signup' + err);
-        const dbo = db.db('authentic-db');
-
-        bcrypt.hash(req.body.password, 10).then(function (hash) {
-          let user = {
-            username: req.body.username,
-            password: hash,
-          };
-          dbo.collection('users').findOne({username: req.body.username,}, (err, result) => {
-            if (result) res.redirect('/?error=username%20already%20in%20use');
-            else {
-              dbo.collection('users').insertOne(user, (err, results) => {
-                if (err) throw err;
-                req.login(results.ops[0], () => {
-                  res.redirect('/');
-                });
-                db.close();
+      bcrypt.hash(req.body.password, 10).then(function (hash) {
+        User.findOne({username: req.body.username,}, (err, result) => {
+          if (result) res.redirect('/?error=username%20already%20in%20use');
+          else {
+            const user = new User({
+              _id: new mongoose.Types.ObjectId(),
+              username : req.body.username,
+              password : hash,
+            });
+            user.save(err => {
+              if (err) console.error(err);
+              req.login(user, () => {
+                res.redirect('/');
               });
-            }
-          });
+            });
+          }
         });
       });
     } else {
