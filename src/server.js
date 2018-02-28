@@ -11,9 +11,11 @@ import todosRouter from './routes/todos';
 import aboutRouter from './routes/about';
 
 import passportjs from './config/passport';
+import mongoose from 'mongoose';
 
 process.env.NODE_ENV = config.NODE_ENV;
 
+mongoose.connect('mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db');
 const app = express();
 
 app.use(express.static('public'));
