@@ -1,9 +1,8 @@
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand active" href="/"><i class="fab fa-react">&nbsp;</i>Authentic Node</a>
-        </div>
-        <div class="row">
+    <div class="navbar-header">
+        <a class="navbar-brand active" href="/"><i class="fab fa-react">&nbsp;</i>Authentic Node</a>
+    </div>
+    <div class="row">
         <ul class="nav navbar-nav">
             <li class="col-xs-4 text-center"><a href="about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
             <% if(isLoggedIn){ %>
@@ -11,9 +10,9 @@
             <li class="col-xs-4 text-center"><a href="auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a></li>
             <% } %>
         </ul>
-        </div>
     </div>
 </nav>
+<div class="container">
 <div class="jumbotron">
     <h1>
         <%= title %>

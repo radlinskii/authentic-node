@@ -1,33 +1,31 @@
 <%- include common/header.ejs %>
+<%- include common/navbar.ejs %>
 
-<div class="container">
-
-    <%- include common/navbar.ejs %>
-
-    <div class="row">
-        <div class="col-md-7">
-            <% for(let i = 0; i < todos.length; i++){ %>
-            <div class="row todo">
-                <br/>
-                <div class="col-md-5 text-left">
-                    <h2><%= todos[i].content %></h2>
-                </div>
-                <div class="col-md-2 text-center">
-                    <span class="label label-default"><%= todos[i].authorUsername %></span>
-                    <span class="label label-default"><%= todos[i].date %></span>
-                    <small class="text-muted"><a href="/todos/<%= todos[i]._id %>">view To Do</a></small>
-                </div>
+<div class="row">
+    <div class="col-md-7">
+        <% for(let i = 0; i < todos.length; i++){ %>
+        <div class="row todo">
+            <br/>
+            <div class="col-md-5 text-left">
+                <h2><%= todos[i].content %></h2>
             </div>
-            <% } %>
+            <div class="col-md-2 text-center">
+                <span class="label label-default"><%= todos[i].authorUsername %></span>
+                <span class="label label-default"><%= todos[i].date %></span>
+                <small class="text-muted"><a href="/todos/<%= todos[i]._id %>">view To Do</a></small>
+            </div>
         </div>
-        <div class="col-md-5">
-            Add a To Do Task
-            <form name="addTodoForm" action="/todos/add" method="post">
-                <textarea name="todoInput" placeholder="e.g. Take out the garbage." minlength="1" maxlength="256" required></textarea><br/>
-                <input type="submit" value="Add">
-            </form>
-        </div>
+        <% } %>
     </div>
+    <div class="col-md-5">
+        Add a To Do Task
+        <form name="addTodoForm" action="/todos/add" method="post">
+            <textarea name="todoInput" placeholder="e.g. Take out the garbage." minlength="1" maxlength="256"
+                      required></textarea><br/>
+            <input type="submit" value="Add">
+        </form>
+    </div>
+</div>
 </div>
 
 <%- include common/footer.ejs %>

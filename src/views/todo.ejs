@@ -10,24 +10,19 @@
     <link href="../style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-brand active" href="/"><i class="fab fa-react">&nbsp;</i>Authentic Node</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a href="../about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
+        <% if(isLoggedIn){ %>
+        <li><a href="../todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
+        <li><a href="../auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a></li>
+        <% } %>
+    </ul>
+</nav>
 <div class="container">
-
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand active" href="/"><i class="fab fa-react">&nbsp;</i>Authentic Node</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="../about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
-                <%if(isLoggedIn){%>
-                <li><a href="../todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
-                <li><a href="../auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a></li>
-                <%}%>
-            </ul>
-        </div>
-    </nav>
-
     <div class="jumbotron">
         <h1>
             <%= todo.content %>
@@ -36,16 +31,19 @@
 
     <div class="row todo">
         <br/>
-        <div class="col-md-8 text-left">
-            <h2>EDIT DELETE</h2>
+        <div class="col-xs-3 text-left">
+            <h5 id="test2">DELETE</h5>
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-xs-2 text-left">
+            <h5 id="test2">EDIT</h5>
+        </div>
+        <div class="col-xs-2 text-center">
             <span class="label"><%= todo.authorUsername %></span>
         </div>
-        <div class="col-md-2 text-center">
+        <div class="col-xs-2 text-center">
             <span class="label"><%= todo.date %></span>
         </div>
     </div>
 </div>
-
-<%- include common/footer.ejs %>
+</body>
+</html>
