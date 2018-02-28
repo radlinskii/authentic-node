@@ -13,7 +13,7 @@ this app is using
 * express
 * passport
 * mongodb
-* mongoose *
+* mongoose
 * oauth*
 * bcrypt
 * ejs
