@@ -1,6 +1,5 @@
 node_modules
 .idea
 lib
-public/app.bundle.js
 public/style.css
 .eslintrc.json
