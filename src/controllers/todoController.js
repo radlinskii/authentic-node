@@ -61,4 +61,4 @@ const todoController = () => {
   };
 };
 
-module.exports = todoController;
+module.exports = todoController();

@@ -4,15 +4,15 @@ import todoController from '../controllers/todoController';
 
 const todoRouter = express.Router();
 
-todoRouter.use(todoController().middleware);
+todoRouter.use(todoController.middleware);
 
 todoRouter.route('/')
-  .get(todoController().getIndex);
+  .get(todoController.getIndex);
 
 todoRouter.route('/:id')
-  .get(todoController().getById);
+  .get(todoController.getById);
 
 todoRouter.route('/add')
-  .post(todoController().postTodo);
+  .post(todoController.postTodo);
 
 module.exports = todoRouter;

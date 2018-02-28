@@ -6,17 +6,17 @@ import authController from '../controllers/authController';
 const router = express.Router();
 
 router.route('/signup')
-  .post(authController().postRegister);
+  .post(authController.postRegister);
 
 router.route('/signin')
-  .post(authController().postLogin);
+  .post(authController.postLogin);
 
 router.route('/logout')
-  .get(authController().logout);
+  .get(authController.logout);
 
 router.route('/profile')
-  .all(authController().middleware)
-  .get(authController().getProfile);
+  .all(authController.middleware)
+  .get(authController.getProfile);
 
 router.route('/google/callback')
   .get(passport.authenticate('google', {
