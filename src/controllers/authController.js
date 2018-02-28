@@ -43,10 +43,6 @@ const authController = () => {
   const postLogin = (req, res) => passport.authenticate('local',
     {successRedirect: '/', failureRedirect: '/?error=wrong%20credentials',})(req, res);
 
-  const getProfile = (req, res) => {
-    res.json(req.user);
-  };
-
   const logout = (req, res) => {
     req.logout();
     res.redirect('/');
@@ -56,7 +52,6 @@ const authController = () => {
     postRegister: postRegister,
     postLogin: postLogin,
     middleware: middleware,
-    getProfile: getProfile,
     logout: logout,
   };
 };

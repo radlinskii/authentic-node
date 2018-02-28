@@ -25,7 +25,8 @@ const todoController = () => {
       if (err) console.log(err);
       const dbo = db.db('authentic-db');
       dbo.collection('todos').findOne({_id: id,}, (err, result) => {
-        res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
+        if(result.author === req.user._id) res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
+        else res.redirect('/?error=permission%20denied');
       });
     });
   };

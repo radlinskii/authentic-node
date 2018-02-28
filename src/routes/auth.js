@@ -15,8 +15,7 @@ router.route('/logout')
   .get(authController.logout);
 
 router.route('/profile')
-  .all(authController.middleware)
-  .get(authController.getProfile);
+  .all(authController.middleware);
 
 router.route('/google/callback')
   .get(passport.authenticate('google', {
