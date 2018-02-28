@@ -3,18 +3,20 @@
         <div class="navbar-header">
             <a class="navbar-brand active" href="/"><i class="fab fa-react">&nbsp;</i>Authentic Node</a>
         </div>
+        <div class="row">
         <ul class="nav navbar-nav">
-            <li><a href="about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
-            <%if(isLoggedIn){%>
-            <li><a href="todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
-            <li><a href="auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a></li>
-            <%}%>
+            <li class="col-xs-4 text-center"><a href="about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
+            <% if(isLoggedIn){ %>
+            <li class="col-xs-4 text-center"><a href="todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
+            <li class="col-xs-4 text-center"><a href="auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a></li>
+            <% } %>
         </ul>
+        </div>
     </div>
 </nav>
 <div class="jumbotron">
     <h1>
-        <%=title %>
+        <%= title %>
     </h1>
 </div>
 
