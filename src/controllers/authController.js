@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
+import User from '../models/user.model';
 import passport from 'passport/lib/index';
 import * as bcrypt from 'bcrypt';
-import User from '../models/user.model';
 
 const authController = () => {
   const middleware = (req, res, next) => {
@@ -14,6 +14,7 @@ const authController = () => {
     if ((req.body.password === req.body.repeatedPassword)) {
       bcrypt.hash(req.body.password, 10).then((hash) => {
         User.findOne({username: req.body.username,}, (err, result) => {
+          if(err) res.redirect(`/?error=${encodeURI('error registering')}`);
           if (result) res.redirect(`/?error=${encodeURI('username already in use')}`);
           else {
             const user = new User({
@@ -22,7 +23,7 @@ const authController = () => {
               password : hash,
             });
             user.save(err => {
-              if (err) console.error(err);
+              if(err) res.redirect(`/?error=${encodeURI('error saving profile to db')}`);
               req.login(user, () => {
                 res.redirect('/');
               });
@@ -31,7 +32,7 @@ const authController = () => {
         });
       });
     } else {
-      res.redirect('/?error=passwords%20mismatch');
+      res.redirect(`/?error=${encodeURI('passwords mismatch')}`);
     }
   };
 

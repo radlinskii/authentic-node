@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import {MongoClient as mongodb, ObjectID as ObjectId,} from 'mongodb';
+import mongoose from 'mongoose';
+import Todo from '../models/todo.model';
 
 const todoController = () => {
   const middleware = (req, res, next) => {
@@ -7,56 +8,39 @@ const todoController = () => {
     else next();
   };
 
-  const getIndex = (req, res) => {
-    let url ='mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';// 'mongodb://@localhost:27017/authentic-db;';
-    mongodb.connect(url, (err, db) => {
-      if (err) console.error(`todos/  ${err}`);
-      const dbo = db.db('authentic-db');
-      dbo.collection('todos').find({author: req.user._id,}).toArray((err, results) => {
-        res.render('todos', {title: 'todos', todos: results, isLoggedIn: req.isAuthenticated(),});
-      });
+  const getTodos = (req, res) => {
+    Todo.find({author: req.user._id,}, (err, results) => {
+      if(err) res.redirect(`/?error=${encodeURI('error loading todo list')}`);
+      res.render('todos', {title: 'To Do List', todos: results, isLoggedIn: req.isAuthenticated(),});
     });
   };
 
-  const getById = (req, res) => {
-    const id = new ObjectId(req.params.id);
-    let url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';// 'mongodb://@localhost:27017/authentic-db;';
-    mongodb.connect(url, (err, db) => {
-      if (err) console.error(`todo/:id ${err}`);
-      const dbo = db.db('authentic-db');
-      dbo.collection('todos').findOne({_id: id,}, (err, result) => {
-        if(result.author === req.user._id) res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
-        else res.redirect(`/?error=${encodeURI('permission denied')}`);
-      });
+  const getTodoById = (req, res) => {
+    const id = mongoose.Types.ObjectId(req.params.id);
+    Todo.findOne({_id: id,}, (err, result) => {
+      if(err) res.redirect(`/todos?error=${encodeURI('error loading todo')}`);
+      else if(!result) res.redirect(`/todos?error=${encodeURI('no such to do')}`);
+      else if(result.author.toString() === req.user._id) res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
+      else res.redirect(`/todos?error=${encodeURI('permission denied')}`);
     });
   };
-
-  const addZeros = (int) => parseInt(int) < 10 ? '0' + int : int;
 
   const postTodo = (req, res) => {
-    let d = new Date();
-    let dates = addZeros(d.getHours()) + ':' + addZeros(d.getMinutes()) + ' ' + addZeros(d.getDate())  + '.' + addZeros(d.getMonth()) + '.'+ d.getFullYear();
-    let todo = {
+    const todo = new Todo({
+      _id: new mongoose.Types.ObjectId(),
       author: req.user._id,
       authorUsername: req.user.username,
       content: req.body.todoInput,
-      date: dates,
-    };
-    const url = 'mongodb://admin:admin@ds249128.mlab.com:49128/authentic-db';
-    mongodb.connect(url, (err, db) => {
-      if(err) console.error(`post todo ${err}`);
-      const dbo = db.db('authentic-db');
-      dbo.collection('todos').insertOne(todo, (err, results) => { //eslint-disable-line
-        if(err) throw err;
-        res.redirect('/todos');
-        db.close();
-      });
+    });
+    todo.save(err => {
+      if (err) res.redirect(`/todos?error=${encodeURI('error saving todo to db')}`);
+      res.redirect('/todos');
     });
   };
 
   return {
-    getIndex: getIndex,
-    getById: getById,
+    getTodos: getTodos,
+    getTodoById: getTodoById,
     middleware: middleware,
     postTodo: postTodo,
   };
