@@ -25,16 +25,43 @@ const todoController = () => {
     });
   };
 
+  const addZeros = (numStr) => {
+    return parseInt(numStr) < 10 ? '0' + numStr : numStr;
+  };
+  const getMyDate = () => {
+    const d = new Date();
+    return `${addZeros(d.getDate())}.${addZeros(d.getMonth())}.${addZeros(d.getFullYear())} ${addZeros(d.getHours())}:${addZeros(d.getMinutes())}:${addZeros(d.getSeconds())}`;
+  };
+
   const postTodo = (req, res) => {
     const todo = new Todo({
       _id: new mongoose.Types.ObjectId(),
       author: req.user._id,
       authorUsername: req.user.username,
       content: req.body.todoInput,
+      date: getMyDate(),
     });
     todo.save(err => {
       if (err) res.redirect(`/todos?error=${encodeURI('error saving todo to db')}`);
       res.redirect('/todos');
+    });
+  };
+
+  const deleteTodoById = (req, res) => {
+    Todo.findByIdAndRemove(req.params.id, (err) => {
+      if (err) res.redirect(`/todos?error=${encodeURI('error deleting todo from database')}`);
+      res.redirect('/todos');
+    });
+  };
+
+  const editTodoById = (req, res) => {
+    const todo = new Todo({
+      content: req.body.editInput,
+      date: getMyDate(),
+    });
+    Todo.findByIdAndUpdate(req.params.id, todo,(err) => {
+      if (err) res.redirect(`/todos?error=${encodeURI('error deleting todo from database')}`);
+      res.redirect(`/todos/${req.params.id}`);
     });
   };
 
@@ -43,6 +70,8 @@ const todoController = () => {
     getTodoById: getTodoById,
     middleware: middleware,
     postTodo: postTodo,
+    deleteTodoById: deleteTodoById,
+    editTodoById: editTodoById,
   };
 };
 

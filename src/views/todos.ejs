@@ -18,11 +18,15 @@
         <% } %>
     </div>
     <div class="col-md-5">
-        Add a To Do Task
         <form name="addTodoForm" action="/todos/add" method="post">
-            <textarea name="todoInput" placeholder="e.g. Take out the garbage." minlength="1" maxlength="256"
-                      required></textarea><br/>
-            <input type="submit" value="Add">
+            <div class="form-group">
+                <label for="toDoInput">Add a To Do Task</label>
+                <textarea name="todoInput" class="form-control" placeholder="e.g. Take out the garbage." minlength="1"
+                          maxlength="256"
+                          rows="4"
+                          required></textarea>
+            </div>
+            <input type="submit" value="Add" class="btn btn-primary">
         </form>
     </div>
 </div>

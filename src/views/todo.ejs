@@ -25,7 +25,7 @@
 </nav>
 <div class="container">
     <div class="jumbotron">
-        <h1>
+        <h1 id="todoContent">
             <%= todo.content %>
         </h1>
     </div>
@@ -33,10 +33,10 @@
     <div class="row todo">
         <br/>
         <div class="col-xs-3 text-left">
-            <h5 id="test2">DELETE</h5>
+            <a href="delete/<%=todo._id%>"><button class="btn btn-danger">Delete</button></a>
         </div>
         <div class="col-xs-2 text-left">
-            <h5 id="test2">EDIT</h5>
+            <a href="#" id="editHref"><button class="btn btn-warning">Edit</button></a>
         </div>
         <div class="col-xs-2 text-center">
             <span class="label"><%= todo.authorUsername %></span>
@@ -45,6 +45,19 @@
             <span class="label"><%= todo.date %></span>
         </div>
     </div>
+    <div class="row" id="edit" style="display: none">
+        <form action="/todos/edit/<%=todo._id%>" method="post">
+            <div class="form-group">
+                <label for="editInput">Update To Do:</label>
+                <textarea name="editInput" id="editInput" class="form-control" placeholder="e.g. Take out the garbage." minlength="1"
+                          maxlength="256"
+                          rows="4"
+                          required></textarea>
+            </div>
+            <input type="submit" value="Edit" class="btn btn-primary">
+        </form>
+    </div>
 </div>
+<script src="../js/edit.js" type="text/javascript"></script>
 </body>
 </html>

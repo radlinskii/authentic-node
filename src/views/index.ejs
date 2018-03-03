@@ -4,25 +4,38 @@
 <div class="row">
     <br/>
     <div class="col-md-4 col-sm-4 text-center">
-        Sign In
+        <h3>Sign In</h3>
         <form name="signInForm" action="/auth/signin" method="post">
-            Username<br/> <input type="text" name="username" placeholder="username" minlength="6" maxlength="16"
-                                 required><br/>
-            Password:<br/><input type="password" name="password" placeholder="password" minlength="6" maxlength="16"
-                                 required><br/>
-            <input type="submit" value="Sign In">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control" placeholder="username" minlength="6" maxlength="16" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="password" minlength="6" maxlength="16" required>
+            </div>
+            <input type="submit" value="Sign In" class="btn btn-primary">
         </form>
     </div>
     <div class="col-md-4 col-sm-4 text-center">
-        Sign Up
+        <h3>Sign Up</h3>
         <form name="signUpForm" action="/auth/signup" method="post">
-            Username:<br/><input type="text" name="username" placeholder="username" minlength="6" maxlength="16"
-                                 required><br/>
-            Password:<br/><input type="password" name="password" placeholder="password" minlength="6" maxlength="16"
-                                 required><br/>
-            Repeat Password:<br/><input type="password" name="repeatedPassword" placeholder="password" minlength="6"
-                                        maxlength="16" required><br/>
-            <input type="submit" value="Sign Up">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control" placeholder="username" minlength="6" maxlength="16"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="password" minlength="6" maxlength="16"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="repeatedPassword">Repeat Password:</label>
+                <input type="password" name="repeatedPassword" class="form-control" placeholder="password" minlength="6"
+                       maxlength="16" required>
+            </div>
+            <input type="submit" value="Sign Up" class="btn btn-primary">
         </form>
     </div>
 </div>

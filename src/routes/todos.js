@@ -12,6 +12,12 @@ todoRouter.route('/')
 todoRouter.route('/:id')
   .get(todoController.getTodoById);
 
+todoRouter.route('/delete/:id')
+  .get(todoController.deleteTodoById);
+
+todoRouter.route('/edit/:id')
+  .post(todoController.editTodoById);
+
 todoRouter.route('/add')
   .post(todoController.postTodo);
 
