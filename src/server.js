@@ -2,16 +2,15 @@
 import config from './config/config';
 import express from 'express';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import morgan from 'morgan';
 import session from 'express-session';
-
+import passport from './config/passport';
 import auth from './routes/auth';
 import indexRouter from './routes/index';
 import todosRouter from './routes/todos';
 import aboutRouter from './routes/about';
-
-import passport from './config/passport';
-import mongoose from 'mongoose';
 
 process.env.NODE_ENV = config.NODE_ENV;
 
@@ -25,6 +24,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false,}));
 app.use(cookieParser());
+app.use(morgan('dev'));
 app.use(session({
   secret: 'anything',
   resave: false,
@@ -35,8 +35,6 @@ passport(app);
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-
-
 app.listen(config.port, (err) => {
   if (err) console.error(err);
   else console.info(`${process.env.NODE_ENV} Running on ${config.port}`);
@@ -46,4 +44,7 @@ app.use('/auth', auth);
 app.use('/todos', todosRouter);
 app.use('/about', aboutRouter);
 app.use('/', indexRouter);
+app.use((req,res) => {
+  res.redirect(`/?error=${encodeURI('page not found')}`);
+});
 

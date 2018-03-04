@@ -18,6 +18,12 @@
         </form>
     </div>
     <div class="col-md-4 col-sm-4 text-center">
+        <div class="form-group">
+            <label for="github">Jump In with Github:</label><br/>
+            <a href="/auth/github" id="github"><img src="images/GithubLogo.png" style="width: 40px; height: 40px;"></a>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-4 text-center">
         <h3>Sign Up</h3>
         <form name="signUpForm" action="/auth/signup" method="post">
             <div class="form-group">
@@ -43,7 +49,7 @@
 else { %>
 <div class="row text-center">
     <h3>
-        Hello <%= username %>
+        Hello <%= user.username %>
     </h3>
 </div>
 <% } %>

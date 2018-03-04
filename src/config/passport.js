@@ -1,18 +1,20 @@
 import passport from 'passport';
+import User from '../models/user.model';
 
 export default (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
 
   passport.serializeUser((user, done) => {
-    done(null, user); //null is for error !
+    done(null, user.id); //null is for error !
   });
 
-  passport.deserializeUser((user, done) => {
-    done(null, user);
+  passport.deserializeUser((id, done) => {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
   });
 
-  require('../strategies/local.strategy')();
-  require('../strategies/google.strategy')();
-  require('../strategies/facebook.strategy')();
+  require('../strategies/local.strategy')(passport);
+  require('../strategies/github.strategy')(passport);
 };

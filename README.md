@@ -14,7 +14,7 @@ this app is using
 * passport
 * mongodb
 * mongoose
-* oauth*
+* oauth
 * bcrypt
 * ejs
 * node-sass

@@ -8,14 +8,17 @@ indexRouter.route('')
       res.render('index', {
         title: 'Authentic Node',
         isLoggedIn: true,
-        username: req.user.username,
+        user: {
+          username: req.user.username,
+          image: req.user.image,
+        },
       },
       );
     } else {
       res.render('index', {
         title: 'Authentic Node',
         isLoggedIn: false,
-        username: '',
+        user: {},
       },
       );
     }

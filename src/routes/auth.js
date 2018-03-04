@@ -14,29 +14,13 @@ router.route('/signin')
 router.route('/logout')
   .get(authController.logout);
 
-router.route('/profile')
-  .all(authController.middleware);
+router.route('/github/callback')
+  .get(passport.authenticate('github', { failureRedirect: `/?error=${encodeURI('error authenticating with github')}`, }),
+    function(req, res) {
+      res.redirect('/');
+    });
 
-router.route('/google/callback')
-  .get(passport.authenticate('google', {
-    successRedirect: '/profile',
-    failure: '/error/',
-  }));
-
-router.route('/google')
-  .get(passport.authenticate('google', {
-    scope: ['https://www.googleapis.com/auth/userinfo.profile',
-      'https://www.googleapis.com/auth/userinfo.email',],
-  }));
-
-router.route('/facebook')
-  .get(passport.authenticate('facebook', {
-    scope: ['email',],
-  }));
-router.route('/facebook/callback')
-  .get(passport.authenticate('facebook', {
-    successRedirect: '/user/get',
-    failureRedirect: '/error/',
-  }));
+router.route('/github')
+  .get(passport.authenticate('github'));
 
 module.exports = router;

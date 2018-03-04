@@ -9,7 +9,7 @@ const todoController = () => {
   };
 
   const getTodos = (req, res) => {
-    Todo.find({author: req.user._id,}, (err, results) => {
+    Todo.find({author: req.user.id,}, (err, results) => {
       if(err) res.redirect(`/?error=${encodeURI('error loading todo list')}`);
       res.render('todos', {title: 'To Do List', todos: results, isLoggedIn: req.isAuthenticated(),});
     });
@@ -20,7 +20,7 @@ const todoController = () => {
     Todo.findOne({_id: id,}, (err, result) => {
       if(err) res.redirect(`/todos?error=${encodeURI('error loading todo')}`);
       else if(!result) res.redirect(`/todos?error=${encodeURI('no such to do')}`);
-      else if(result.author.toString() === req.user._id) res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
+      else if(result.author.toString() === req.user.id) res.render('todo', {title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(),});
       else res.redirect(`/todos?error=${encodeURI('permission denied')}`);
     });
   };
