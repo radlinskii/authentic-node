@@ -16,7 +16,7 @@ router.route('/logout')
 
 router.route('/github/callback')
   .get(passport.authenticate('github', { failureRedirect: `/?error=${encodeURI('error authenticating with github')}`, }),
-    function(req, res) {
+    (req, res) => {
       res.redirect('/');
     });
 

@@ -1,9 +1,11 @@
 /* eslint-disable no-console */
 import {Strategy as LocalStrategy,} from 'passport-local';
 import User from '../models/user.model';
+import mongoose from 'mongoose';
 
 module.exports = (passport) => {
-  passport.use(new LocalStrategy({
+
+  passport.use('local-signin', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
   },
@@ -18,4 +20,23 @@ module.exports = (passport) => {
       }
     });
   }));
+
+  passport.use('local-signup', new LocalStrategy(
+    {
+      usernameField: 'username',
+      passwordField: 'password',
+    },
+    (username, password, done) => {
+      const user = new User();
+      user._id = new mongoose.Types.ObjectId();
+      user.username = username;
+      user.password = user.generateHash(password);
+
+      user.save(err => {
+        if (err) return done(err, false);
+        return done(null, user);
+      });
+    }
+  ));
 };
+
