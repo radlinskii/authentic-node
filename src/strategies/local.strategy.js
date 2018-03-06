@@ -20,29 +20,27 @@ module.exports = (passport) => {
     });
   }));
 
-  passport.use('local-signup', new LocalStrategy(
-    {
-      usernameField: 'username',
-      passwordField: 'password',
-      passReqToCallback : true,
-    },
-    (req, username, password, done) => {
-      if(req.body.password === req.body.repeatedPassword) {
-        User.findOne({username: req.body.username,}, (err, result) => {
-          if(!result) {
-            const user = new User();
-            user._id = new mongoose.Types.ObjectId();
-            user.username = username;
-            user.password = user.generateHash(password);
-
-            user.save(err => {
-              if (err) return done(err, false);
-              return done(null, user);
-            });
-          } else return done(err, false);
-        });
-      } else return done(null, false);
-    }
+  passport.use('local-signup', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback : true,
+  },
+  (req, username, password, done) => {
+    if(req.body.password === req.body.repeatedPassword) {
+      User.findOne({username: req.body.username,}, (err, result) => {
+        if(!result) {
+          const user = new User();
+          user._id = new mongoose.Types.ObjectId();
+          user.username = username;
+          user.password = user.generateHash(password);
+          user.save(err => {
+            if (err) return done(err, false);
+            return done(null, user);
+          });
+        } else return done(err, false);
+      });
+    } else return done(null, false);
+  }
   ));
 };
 

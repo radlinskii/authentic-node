@@ -24,7 +24,7 @@ router.route('/github')
   .get(passport.authenticate('github'));
 
 router.route('/github/connect')
-  .get(passport.authorize('github'));
+  .get(passport.authorize('github', { scope: [ 'user', ], }));
 
 router.route('/github/connect/callback')
   .get(passport.authorize('github', { failureRedirect: `/?error=${encodeURI('error authorizing with github')}`, }),
