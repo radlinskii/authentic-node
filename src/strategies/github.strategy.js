@@ -34,7 +34,7 @@ module.exports = (passport) => {
           let user = req.user;
           user.githubID = profile.id;
           user.githubName = profile.displayName;
-          user.githubEmail = profile.email;
+          user.githubEmail = profile.emails[0].value;
           user.githubAvatarUrl = profile.avatar_url;
           user.save((err) => {
             if (err) return done(err, false);
