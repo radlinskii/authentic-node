@@ -33,7 +33,7 @@ module.exports = (passport) => {
         else {
           let user = req.user;
           user.githubID = profile.id;
-          user.githubName = profile.name;
+          user.githubName = profile.displayName;
           user.save((err) => {
             if (err) return done(err, false);
             return done(null, user);
