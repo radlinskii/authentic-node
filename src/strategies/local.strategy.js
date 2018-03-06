@@ -29,8 +29,11 @@ module.exports = (passport) => {
     if(req.body.password === req.body.repeatedPassword) {
       User.findOne({username: req.body.username,}, (err, result) => {
         if(!result) {
-          const user = new User();
-          user._id = new mongoose.Types.ObjectId();
+          let user;
+          if(!req.user) {
+            user = new User();
+            user._id = new mongoose.Types.ObjectId();
+          } else user = req.user;
           user.username = username;
           user.password = user.generateHash(password);
           user.save(err => {
