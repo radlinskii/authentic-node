@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
   password: String,
   githubID: String,
   githubName: String,
+  githubEmail: String,
+  githubAvatarUrl: String,
 });
 
 userSchema.methods.generateHash = (password) => {
