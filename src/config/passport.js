@@ -6,7 +6,7 @@ export default (app) => {
   app.use(passport.session());
 
   passport.serializeUser((user, done) => {
-    done(null, user.id); //null is for error !
+    done(null, user.id);
   });
 
   passport.deserializeUser((id, done) => {

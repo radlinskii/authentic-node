@@ -27,13 +27,18 @@ module.exports = (passport) => {
         }
       });
     } else {
-      let user = req.user;
-      user.githubID = profile.id;
-      user.githubName = profile.name;
-
-      user.save((err) => {
-        if (err) return done(err, false);
-        return done(null, user);
+      User.findOne({githubID: profile.id,}, (err, result) => {
+        if (err) return done(err);
+        if (result) return done(null, false);
+        else {
+          let user = req.user;
+          user.githubID = profile.id;
+          user.githubName = profile.name;
+          user.save((err) => {
+            if (err) return done(err, false);
+            return done(null, user);
+          });
+        }
       });
     }
   }

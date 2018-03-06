@@ -14,8 +14,7 @@ module.exports = (passport) => {
       if (err) return done(err);
       else if (!user) return done(null, false);
       else {
-        if (!user.validPassword(password))
-          return done(null, false);
+        if (!user.validPassword(password)) return done(null, false);
         return done(null, user);
       }
     });
@@ -25,17 +24,24 @@ module.exports = (passport) => {
     {
       usernameField: 'username',
       passwordField: 'password',
+      passReqToCallback : true,
     },
-    (username, password, done) => {
-      const user = new User();
-      user._id = new mongoose.Types.ObjectId();
-      user.username = username;
-      user.password = user.generateHash(password);
+    (req, username, password, done) => {
+      if(req.body.password === req.body.repeatedPassword) {
+        User.findOne({username: req.body.username,}, (err, result) => {
+          if(!result) {
+            const user = new User();
+            user._id = new mongoose.Types.ObjectId();
+            user.username = username;
+            user.password = user.generateHash(password);
 
-      user.save(err => {
-        if (err) return done(err, false);
-        return done(null, user);
-      });
+            user.save(err => {
+              if (err) return done(err, false);
+              return done(null, user);
+            });
+          } else return done(err, false);
+        });
+      } else return done(null, false);
     }
   ));
 };
