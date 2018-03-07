@@ -7,12 +7,17 @@ const authController = () => {
     else next();
   };
 
-  const postRegister = (req, res) =>
-    passport.authenticate('local-signup',
-      {successRedirect: '/', failureRedirect: `/?error=${encodeURI('error registering')}`,})(req, res);
+  const postRegister = (req, res) => passport.authenticate('local-signup', {
+    successRedirect: '/',
+    failureRedirect: '/',
+    failureFlash: true,
+  })(req, res);
 
-  const postLogin = (req, res) => passport.authenticate('local-signin',
-    {successRedirect: '/', failureRedirect: `/?error=${encodeURI('wrong credentials')}`,})(req, res);
+  const postLogin = (req, res) => passport.authenticate('local-signin', {
+    successRedirect: '/',
+    failureRedirect: '/',
+    failureFlash: true,
+  })(req, res);
 
   const logout = (req, res) => {
     req.logout();

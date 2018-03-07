@@ -16,6 +16,7 @@ indexRouter.route('')
         title: 'Authentic Node',
         isLoggedIn: false,
         user: {},
+        message: req.flash('error'),
       },
       );
     }

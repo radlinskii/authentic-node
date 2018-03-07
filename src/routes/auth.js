@@ -14,22 +14,28 @@ router.route('/signin')
 router.route('/logout')
   .get(authController.logout);
 
-router.route('/github/callback')
-  .get(passport.authenticate('github', { failureRedirect: `/?error=${encodeURI('error authenticating with github')}`, }),
-    (req, res) => {
-      res.redirect('/');
-    });
-
 router.route('/github')
   .get(passport.authenticate('github'));
+
+router.route('/github/callback')
+  .get(passport.authenticate('github', {
+    failureRedirect: `/?error=${encodeURI('error authenticating with github')}`,
+    failureFlash: true,
+  }),
+  (req, res) => {
+    res.redirect('/');
+  });
 
 router.route('/github/connect')
   .get(passport.authorize('github', { scope: [ 'user', ], }));
 
 router.route('/github/connect/callback')
-  .get(passport.authorize('github', { failureRedirect: `/?error=${encodeURI('error authorizing with github')}`, }),
-    (req, res) => {
-      res.redirect('/');
-    });
+  .get(passport.authorize('github', {
+    failureRedirect: `/?error=${encodeURI('error authorizing with github')}`,
+    failureFlash: true,
+  }),
+  (req, res) => {
+    res.redirect('/');
+  });
 
 module.exports = router;

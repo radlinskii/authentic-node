@@ -31,6 +31,7 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-flash": "0.0.2",
     "express-session": "^1.15.6",
     "mongodb": "^3.0.3",
     "mongoose": "^5.0.7",

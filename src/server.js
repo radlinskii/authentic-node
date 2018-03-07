@@ -3,6 +3,7 @@ import config from './config/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+import flash from 'express-flash';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import session from 'express-session';
@@ -22,14 +23,15 @@ mongoose.connect(`mongodb://${config.dbUser}:${config.dbPassword}@${config.dbHos
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false,}));
+app.use(bodyParser.urlencoded({ extended: false, }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(session({
   secret: 'anything',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
 }));
+app.use(flash());
 passport(app);
 
 app.set('views', './src/views');

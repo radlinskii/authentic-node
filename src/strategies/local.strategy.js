@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import {Strategy as LocalStrategy,} from 'passport-local';
+import { Strategy as LocalStrategy, } from 'passport-local';
 import User from '../models/user.model';
 import mongoose from 'mongoose';
 
@@ -10,11 +9,11 @@ module.exports = (passport) => {
     passwordField: 'password',
   },
   (username, password, done) => {
-    User.findOne({username: username,}, (err, user) => {
-      if (err) return done(err);
-      else if (!user) return done(null, false);
+    User.findOne({ username: username, }, (err, user) => {
+      if (err) return done(err, false, { message: 'Incorrect password.', });
+      else if (!user) return done(null, false, { message: 'Incorrect username or password.', });
       else {
-        if (!user.validPassword(password)) return done(null, false);
+        if (!user.validPassword(password)) return done(null, false, { message: 'Incorrect password or username.', });
         return done(null, user);
       }
     });
@@ -27,7 +26,8 @@ module.exports = (passport) => {
   },
   (req, username, password, done) => {
     if(req.body.password === req.body.repeatedPassword) {
-      User.findOne({username: req.body.username,}, (err, result) => {
+      User.findOne({ username: req.body.username, }, (err, result) => {
+        if (err) { return done(err, false, { message: 'Incorrect password.', }); }
         if(!result) {
           let user;
           if(!req.user) {
@@ -37,12 +37,14 @@ module.exports = (passport) => {
           user.username = username;
           user.password = user.generateHash(password);
           user.save(err => {
-            if (err) return done(err, false);
+            if (err) return done(err, false, { message: 'database error', });
             return done(null, user);
           });
-        } else return done(err, false);
+        } else return done(null, false, { message: 'Username already in use.', });
       });
-    } else return done(null, false);
+    } else {
+      return done(null, false, { message: 'Incorrect password.', });
+    }
   }
   ));
 };

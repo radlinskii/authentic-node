@@ -3,6 +3,7 @@
 <% if(!isLoggedIn){ %>
 <div class="row">
     <br/>
+    <%=message%>
     <div class="col-md-4 col-sm-4 text-center">
         <h3>Sign In</h3>
         <form name="signInForm" action="/auth/signin" method="post">
