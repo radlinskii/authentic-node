@@ -1,4 +1,5 @@
 /* eslint-disable no-console*/
+require('dotenv').config();
 import config from './config/config';
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -17,7 +18,7 @@ process.env.NODE_ENV = config.NODE_ENV;
 
 const app = express();
 mongoose.connect(process.env.DatabaseURL).then(
-  () => { console.info(`connected to ${config.dbName}`); },
+  () => { console.info('connected to db'); },
   err => { console.error(err); }
 );
 
