@@ -15,7 +15,7 @@ module.exports = (passport) => {
         if (err) return done(err, false, { message: 'Database error.', });
         if (result) return done(null, result);
         else {
-          let user = new User();
+          const user = new User();
           user._id = new mongoose.Types.ObjectId();
           user.githubID = profile.id;
           user.githubName = profile.displayName;
@@ -31,7 +31,7 @@ module.exports = (passport) => {
         if (err) return done(err, false, { message: 'Database error.', });
         if (result) return done(null, false, { message: 'Can\'t link github account to multiple local accounts.', });
         else {
-          let user = req.user;
+          const user = req.user;
           user.githubID = profile.id;
           user.githubName = profile.displayName;
           user.githubEmail = profile.emails[0].value;
