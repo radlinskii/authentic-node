@@ -6,7 +6,7 @@ module.exports = (passport) => {
   passport.use(new GithubStrategy({
     clientID: '8dfd0a616bbb2d952ac3',
     clientSecret: '4d73266279806735692b28856e367610f536c3ee',
-    callbackURL: 'http://localhost:8080/auth/github/callback', //https://authentic-node.herokuapp.com/
+    callbackURL: 'https://authentic-node.herokuapp.com/auth/github/callback', //'http://localhost:8080/auth/github/callback', //
     passReqToCallback : true,
   },
   function (req, accessToken, refreshToken, profile, done) {
