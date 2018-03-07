@@ -16,7 +16,7 @@ import aboutRouter from './routes/about';
 process.env.NODE_ENV = config.NODE_ENV;
 
 const app = express();
-mongoose.connect(`mongodb://${config.dbUser}:${config.dbPassword}@${config.dbHost}:${config.dbPort}/${config.dbName}`).then(
+mongoose.connect(process.env.DatabaseURL).then(
   () => { console.info(`connected to ${config.dbName}`); },
   err => { console.error(err); }
 );
