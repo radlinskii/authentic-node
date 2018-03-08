@@ -26,7 +26,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false, }));
 app.use(cookieParser());
-app.use(morgan('dev'));
+if(process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(session({
   secret: 'anything',
   resave: false,
