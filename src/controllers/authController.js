@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import passport from 'passport/lib/index';
 
 const authController = () => {
@@ -24,11 +23,31 @@ const authController = () => {
     res.redirect('/');
   };
 
+  const githubAuthenticate = (req, res) => passport.authenticate('github')(req, res);
+
+  const githubAuthenticateCB = (req, res) => passport.authenticate('github', {
+    successRedirect: '/',
+    failureRedirect: '/',
+    failureFlash: true,
+  })(req, res);
+
+  const githubAuthorizeCB = (req, res) => passport.authorize('github', {
+    successRedirect: '/',
+    failureRedirect: '/',
+    failureFlash: true,
+  })(req, res);
+
+  const githubAuthorize = (req, res) => passport.authorize('github', { scope: [ 'user', ], })(req, res);
+
   return {
     postRegister: postRegister,
     postLogin: postLogin,
     middleware: middleware,
     logout: logout,
+    githubAuthenticate: githubAuthenticate,
+    githubAuthenticateCB: githubAuthenticateCB,
+    githubAuthorize: githubAuthorize,
+    githubAuthorizeCB: githubAuthorizeCB,
   };
 };
 

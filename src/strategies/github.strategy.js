@@ -9,7 +9,7 @@ module.exports = (passport) => {
     callbackURL: process.env.githubCalbbackURL,
     passReqToCallback : true,
   },
-  function (req, accessToken, refreshToken, profile, done) {
+  (req, accessToken, refreshToken, profile, done) => {
     if (!req.user) {
       User.findOne({ githubID: profile.id, }, (err, result) => {
         if (err) return done(err, false, { message: 'Database error.', });

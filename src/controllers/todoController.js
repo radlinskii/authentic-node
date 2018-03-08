@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import Todo from '../models/todo.model';
 

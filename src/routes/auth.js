@@ -1,6 +1,4 @@
-/* eslint-disable no-console */
 import express from 'express';
-import passport from 'passport';
 import authController from '../controllers/authController';
 
 const router = express.Router();
@@ -15,27 +13,15 @@ router.route('/logout')
   .get(authController.logout);
 
 router.route('/github')
-  .get(passport.authenticate('github'));
+  .get(authController.githubAuthenticate);
 
 router.route('/github/callback')
-  .get(passport.authenticate('github', {
-    failureRedirect: `/?error=${encodeURI('error authenticating with github')}`,
-    failureFlash: true,
-  }),
-  (req, res) => {
-    res.redirect('/');
-  });
+  .get(authController.githubAuthenticateCB);
 
 router.route('/github/connect')
-  .get(passport.authorize('github', { scope: [ 'user', ], }));
+  .get(authController.githubAuthorize);
 
 router.route('/github/connect/callback')
-  .get(passport.authorize('github', {
-    failureRedirect: `/?error=${encodeURI('error authorizing with github')}`,
-    failureFlash: true,
-  }),
-  (req, res) => {
-    res.redirect('/');
-  });
+  .get(authController.githubAuthorizeCB);
 
 module.exports = router;
