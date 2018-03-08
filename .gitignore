@@ -4,5 +4,4 @@ lib
 public/style.css
 public/js
 .eslintrc.json
-./.env
 .env

@@ -1,6 +1,5 @@
 /* eslint-disable no-console*/
 require('dotenv').config();
-import config from './config/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -12,8 +11,6 @@ import auth from './routes/auth';
 import indexRouter from './routes/index';
 import todosRouter from './routes/todos';
 import aboutRouter from './routes/about';
-
-process.env.NODE_ENV = config.NODE_ENV;
 
 const app = express();
 mongoose.connect(process.env.DatabaseURL).then(
@@ -36,9 +33,9 @@ passport(app);
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
-app.listen(config.port, (err) => {
+app.listen(process.env.PORT, (err) => {
   if (err) console.error(err);
-  else console.info(`${process.env.NODE_ENV} Running on ${config.port}`);
+  else console.info(`${process.env.NODE_ENV} Running on ${process.env.PORT}`);
 });
 
 app.use('/auth', auth);
