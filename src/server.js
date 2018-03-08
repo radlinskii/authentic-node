@@ -6,7 +6,6 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import flash from 'express-flash';
 import cookieParser from 'cookie-parser';
-import morgan from 'morgan';
 import session from 'express-session';
 import passport from './config/passport';
 import auth from './routes/auth';
@@ -26,7 +25,6 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false, }));
 app.use(cookieParser());
-if(process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(session({
   secret: 'anything',
   resave: false,

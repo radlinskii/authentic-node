@@ -17,9 +17,10 @@ this app is using
 * oauth
 * bcrypt
 * ejs
-* node-sass
+* sass
 * babel
+* eslint
+* dotenv
 * npm scripts
-
 
 

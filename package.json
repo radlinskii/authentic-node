@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/radlinskii/project0.git"
+    "url": "git+https://github.com/radlinskii/authentic-node.git"
   },
   "keywords": [
     "node"
@@ -19,9 +19,9 @@
   "author": "radligna",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/radlinskii/project0/issues"
+    "url": "https://github.com/radlinskii/authentic-node/issues"
   },
-  "homepage": "https://github.com/radlinskii/project0#readme",
+  "homepage": "https://github.com/radlinskii/authentic-node#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -43,7 +43,6 @@
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "dotenv": "^5.0.1",
-    "eslint": "^4.18.1",
-    "morgan": "^1.9.0"
+    "eslint": "^4.18.1"
   }
 }
