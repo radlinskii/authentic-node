@@ -10,7 +10,7 @@ module.exports = (passport) => {
   },
   (username, password, done) => {
     User.findOne({ username: username, }, (err, user) => {
-      if (err) return done(err, false, { message: 'Incorrect password.', });
+      if (err) return done(err, false, { message: 'Error logging in.', });
       else if (!user) return done(null, false, { message: 'Incorrect username or password.', });
       else {
         if (!user.validPassword(password)) return done(null, false, { message: 'Incorrect password or username.', });
@@ -27,7 +27,7 @@ module.exports = (passport) => {
   (req, username, password, done) => {
     if(req.body.password === req.body.repeatedPassword) {
       User.findOne({ username: req.body.username, }, (err, result) => {
-        if (err) { return done(err, false, { message: 'Incorrect password.', }); }
+        if (err) { return done(err, false, { message: 'Error registering.', }); }
         if(!result) {
           let user;
           if(!req.user) {

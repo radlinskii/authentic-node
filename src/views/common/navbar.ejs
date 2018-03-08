@@ -19,3 +19,8 @@
     </h1>
 </div>
 
+    <% if(messages.error){ %>
+    <div class="row text-center danger">
+        <h1><%= messages.error%></h1>
+    </div>
+    <% } %>

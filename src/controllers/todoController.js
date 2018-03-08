@@ -3,13 +3,19 @@ import Todo from '../models/todo.model';
 
 const todoController = () => {
   const middleware = (req, res, next) => {
-    if(!req.isAuthenticated()) res.redirect('/');
+    if(!req.isAuthenticated()) {
+      req.flash('error', 'Permission denied!');
+      res.redirect('/todos');
+    }
     else next();
   };
 
   const getTodos = (req, res) => {
     Todo.find({ author: req.user.id, }, (err, results) => {
-      if(err) res.redirect(`/?error=${encodeURI('error loading todo list')}`);
+      if(err) {
+        req.flash('error', 'Error Loading To Do List!');
+        res.redirect('/');
+      }
       res.render('todos', { title: 'To Do List', todos: results, isLoggedIn: req.isAuthenticated(), });
     });
   };
@@ -17,10 +23,19 @@ const todoController = () => {
   const getTodoById = (req, res) => {
     const id = mongoose.Types.ObjectId(req.params.id);
     Todo.findOne({ _id: id, }, (err, result) => {
-      if(err) res.redirect(`/todos?error=${encodeURI('error loading todo')}`);
-      else if(!result) res.redirect(`/todos?error=${encodeURI('no such to do')}`);
+      if(err) {
+        req.flash('error', 'error loading To Do!');
+        res.redirect('/todos');
+      }
+      else if(!result) {
+        req.flash('error', 'No such To Do!');
+        res.redirect('/todos');
+      }
       else if(result.author.toString() === req.user.id) res.render('todo', { title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(), });
-      else res.redirect(`/todos?error=${encodeURI('permission denied')}`);
+      else {
+        req.flash('error', 'Permission Denied!');
+        res.redirect('/todos');
+      }
     });
   };
 
@@ -41,15 +56,32 @@ const todoController = () => {
       date: getMyDate(),
     });
     todo.save(err => {
-      if (err) res.redirect(`/todos?error=${encodeURI('error saving todo to db')}`);
+      if (err) {
+        req.flash('error', 'Error saving To Do to Database!');
+        res.redirect('/todos');
+      }
       res.redirect('/todos');
     });
   };
 
   const deleteTodoById = (req, res) => {
-    Todo.findByIdAndRemove(req.params.id, (err) => {
-      if (err) res.redirect(`/todos?error=${encodeURI('error deleting todo from database')}`);
-      res.redirect('/todos');
+
+    Todo.findById(req.params.id, (err, todo) => {
+      if (err) {
+        req.flash('error', 'Error deleting To Do from Database!');
+        res.redirect('/todos/');
+      }
+      if(todo.author === req.user.id) {
+        todo.remove((err) => {
+          if(err) {
+            req.flash('error', 'Error deleting To Do from Database!');
+            res.redirect('/todos');
+          } else res.redirect('/todos');
+        });
+      } else {
+        req.flash('error', 'Permission Denied!');
+        res.redirect('/todos');
+      }
     });
   };
 
@@ -59,7 +91,10 @@ const todoController = () => {
       date: getMyDate(),
     });
     Todo.findByIdAndUpdate(req.params.id, todo,(err) => {
-      if (err) res.redirect(`/todos?error=${encodeURI('error deleting todo from database')}`);
+      if (err) {
+        req.flash('error', 'Error editing To Do!');
+        res.redirect('/todos');
+      }
       res.redirect(`/todos/${req.params.id}`);
     });
   };

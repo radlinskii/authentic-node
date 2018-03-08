@@ -1,6 +1,10 @@
 <%- include common/header.ejs %>
 <%- include common/navbar.ejs %>
-<%=message%>
+<% if(message){ %>
+<div class="row text-center alert alert-danger">
+    <h1><%= message %></h1>
+</div>
+<% } %>
 <% if(!isLoggedIn){ %>
 <div class="row">
     <div class="col-md-4 col-sm-4 text-center">
@@ -8,11 +12,13 @@
         <form name="signInForm" action="/auth/signin" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" name="username" class="form-control" placeholder="username" minlength="6" maxlength="16" required>
+                <input type="text" name="username" class="form-control" placeholder="username" minlength="6"
+                       maxlength="16" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control" placeholder="password" minlength="6" maxlength="16" required>
+                <input type="password" name="password" class="form-control" placeholder="password" minlength="6"
+                       maxlength="16" required>
             </div>
             <input type="submit" value="Sign In" class="btn btn-primary">
         </form>
@@ -28,12 +34,14 @@
         <form name="signUpForm" action="/auth/signup" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="text" name="username" class="form-control" placeholder="username" minlength="6" maxlength="16"
+                <input type="text" name="username" class="form-control" placeholder="username" minlength="6"
+                       maxlength="16"
                        required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control" placeholder="password" minlength="6" maxlength="16"
+                <input type="password" name="password" class="form-control" placeholder="password" minlength="6"
+                       maxlength="16"
                        required>
             </div>
             <div class="form-group">
@@ -47,47 +55,50 @@
 </div>
 <% } else { %>
 <div class="row text-center">
-<% if(!user.githubID) {%>
-<div class="row text-center">
-    <h3>
-        Hello <%= user.username %>
-    </h3>
-</div>
-<div class="col-md-4 col-sm-4">
-    <div class="form-group">
-        <label for="github">Jump In with Github:</label><br/>
-        <a href="/auth/github/connect" id="github"><img src="images/GithubLogo.png" style="width: 80px; height: 80px;"></a>
+    <% if(!user.githubID) { %>
+    <div class="row text-center">
+        <h3>
+            Hello <%= user.username %>
+        </h3>
     </div>
-</div>
-<%}
-if (!user.username){%>
-<div class="row text-center">
-    <h3>
-        Hello <%= user.githubName %>
-    </h3>
-</div>
-<div class="col-md-4 col-sm-4">
-    <h3>Sign Up</h3>
-    <form name="signUpForm" action="/auth/signup" method="post">
+    <div class="col-md-4 col-sm-4">
         <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" name="username" class="form-control" placeholder="username" minlength="6" maxlength="16"
-                   required>
+            <label for="github">Jump In with Github:</label><br/>
+            <a href="/auth/github/connect" id="github"><img src="images/GithubLogo.png"
+                                                            style="width: 80px; height: 80px;"></a>
         </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" name="password" class="form-control" placeholder="password" minlength="6" maxlength="16"
-                   required>
-        </div>
-        <div class="form-group">
-            <label for="repeatedPassword">Repeat Password:</label>
-            <input type="password" name="repeatedPassword" class="form-control" placeholder="password" minlength="6"
-                   maxlength="16" required>
-        </div>
-        <input type="submit" value="Sign Up" class="btn btn-primary">
-    </form>
-</div>
-<% } else if(user.githubID) { %>
+    </div>
+    <% }
+    if (!user.username){ %>
+    <div class="row text-center">
+        <h3>
+            Hello <%= user.githubName %>
+        </h3>
+    </div>
+    <div class="col-md-4 col-sm-4">
+        <h3>Sign Up</h3>
+        <form name="signUpForm" action="/auth/signup" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control" placeholder="username" minlength="6"
+                       maxlength="16"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" placeholder="password" minlength="6"
+                       maxlength="16"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="repeatedPassword">Repeat Password:</label>
+                <input type="password" name="repeatedPassword" class="form-control" placeholder="password" minlength="6"
+                       maxlength="16" required>
+            </div>
+            <input type="submit" value="Sign Up" class="btn btn-primary">
+        </form>
+    </div>
+    <% } else if(user.githubID) { %>
     <h3>
         Hello <%= user.githubName %>, <%= user.username %>
     </h3>
