@@ -4,3 +4,4 @@ document.getElementById('editHref').addEventListener('click', (e) => {
   document.getElementById('editInput').value = document.getElementById('todoContent').innerText;
   e.target.style.display = 'none';
 });
+

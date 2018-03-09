@@ -5,7 +5,7 @@ const todoController = () => {
   const middleware = (req, res, next) => {
     if(!req.isAuthenticated()) {
       req.flash('error', 'Permission denied!');
-      res.redirect('/todos');
+      res.redirect('/');
     }
     else next();
   };
@@ -31,7 +31,12 @@ const todoController = () => {
         req.flash('error', 'No such To Do!');
         res.redirect('/todos');
       }
-      else if(result.author.toString() === req.user.id) res.render('todo', { title: 'single todo', todo: result, isLoggedIn: req.isAuthenticated(), });
+      else if(result.author.toString() === req.user.id)
+        res.render('todo', {
+          title: 'single todo',
+          todo: result,
+          isLoggedIn: req.isAuthenticated(),
+        });
       else {
         req.flash('error', 'Permission Denied!');
         res.redirect('/todos');
@@ -65,11 +70,10 @@ const todoController = () => {
   };
 
   const deleteTodoById = (req, res) => {
-
     Todo.findById(req.params.id, (err, todo) => {
       if (err) {
         req.flash('error', 'Error deleting To Do from Database!');
-        res.redirect('/todos/');
+        res.redirect('/todos');
       }
       if(todo.author === req.user.id) {
         todo.remove((err) => {

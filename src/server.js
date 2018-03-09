@@ -11,6 +11,7 @@ import auth from './routes/auth';
 import indexRouter from './routes/index';
 import todosRouter from './routes/todos';
 import aboutRouter from './routes/about';
+import profileRouter from './routes/profile';
 
 const app = express();
 mongoose.connect(process.env.DatabaseURL).then(
@@ -41,8 +42,10 @@ app.listen(process.env.PORT, (err) => {
 app.use('/auth', auth);
 app.use('/todos', todosRouter);
 app.use('/about', aboutRouter);
+app.use('/profile', profileRouter);
 app.use('/', indexRouter);
 app.use((req,res) => {
-  res.redirect(`/?error=${encodeURI('page not found')}`);
+  req.flash('error', 'Page not found!');
+  res.redirect('/');
 });
 

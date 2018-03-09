@@ -58,12 +58,12 @@
     <% if(!user.githubID) { %>
     <div class="row text-center">
         <h3>
-            Hello <%= user.username %>
+            Hello <%= user.username %>!
         </h3>
     </div>
     <div class="col-md-4 col-sm-4">
         <div class="form-group">
-            <label for="github">Jump In with Github:</label><br/>
+            <label for="github">Link your GitHub account here</label><br/>
             <a href="/auth/github/connect" id="github"><img src="images/GithubLogo.png"
                                                             style="width: 80px; height: 80px;"></a>
         </div>
@@ -72,11 +72,11 @@
     if (!user.username){ %>
     <div class="row text-center">
         <h3>
-            Hello <%= user.githubName %>
+            Hello <%= user.githubName %>!
         </h3>
     </div>
     <div class="col-md-4 col-sm-4">
-        <h3>Sign Up</h3>
+        <h3>Add a local profile:</h3>
         <form name="signUpForm" action="/auth/signup" method="post">
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -98,13 +98,7 @@
             <input type="submit" value="Sign Up" class="btn btn-primary">
         </form>
     </div>
-    <% } else if(user.githubID) { %>
-    <h3>
-        Hello <%= user.githubName %>, <%= user.username %>
-    </h3>
     <% } %>
 </div>
 <% } %>
-</div>
-
 <%- include common/footer.ejs %>

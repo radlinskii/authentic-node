@@ -15,14 +15,17 @@
     <div class="navbar-header">
         <a class="navbar-brand active" href="/"><i class="fab fa-react">&nbsp;</i>Authentic Node</a>
     </div>
-    <ul class="nav navbar-nav">
-        <li><a href="../about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
-        <% if(isLoggedIn){ %>
-        <li><a href="../todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
-        <li><a href="../auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a></li>
-        <% } %>
-    </ul>
+    <div class="row">
+        <ul class="nav navbar-nav">
+            <li class="col-xs-3 text-center"><a href="../about"><i class="fa fa-info-circle">&nbsp;</i>about</a></li>
+            <li class="col-xs-3 text-center"><a href="../profile"><i class="fas fa-user">&nbsp;</i>profile</a></li>
+            <li class="col-xs-3 text-center"><a href="../todos"><i class="fa fa-tasks">&nbsp;</i>todos</a></li>
+            <li class="col-xs-3 text-center"><a href="../auth/logout"><i class="fa fa-power-off">&nbsp;</i>logout</a>
+            </li>
+        </ul>
+    </div>
 </nav>
+
 <div class="container">
     <div class="jumbotron">
         <h1 id="todoContent">
@@ -33,10 +36,14 @@
     <div class="row todo">
         <br/>
         <div class="col-xs-3 text-left">
-            <a href="delete/<%=todo._id%>"><button class="btn btn-danger">Delete</button></a>
+            <a href="delete/<%= todo._id %>">
+                <button class="btn btn-danger">Delete</button>
+            </a>
         </div>
         <div class="col-xs-2 text-left">
-            <a href="#" id="editHref"><button class="btn btn-warning">Edit</button></a>
+            <a href="#" id="editHref">
+                <button class="btn btn-warning">Edit</button>
+            </a>
         </div>
         <div class="col-xs-2 text-center">
             <span class="label"><%= todo.authorUsername %></span>
@@ -46,10 +53,11 @@
         </div>
     </div>
     <div class="row" id="edit" style="display: none">
-        <form action="/todos/edit/<%=todo._id%>" method="post">
+        <form action="/todos/edit/<%= todo._id %>" method="post">
             <div class="form-group">
                 <label for="editInput">Update To Do:</label>
-                <textarea name="editInput" id="editInput" class="form-control" placeholder="e.g. Take out the garbage." minlength="1"
+                <textarea name="editInput" id="editInput" class="form-control" placeholder="e.g. Take out the garbage."
+                          minlength="1"
                           maxlength="256"
                           rows="4"
                           required></textarea>

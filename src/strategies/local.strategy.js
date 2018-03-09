@@ -43,7 +43,7 @@ module.exports = (passport) => {
         } else return done(null, false, { message: 'Username already in use.', });
       });
     } else {
-      return done(null, false, { message: 'Incorrect password.', });
+      return done(null, false, { message: 'Passwords mismatch.', });
     }
   }
   ));
