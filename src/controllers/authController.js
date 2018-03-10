@@ -27,13 +27,14 @@ const authController = () => {
     const user = req.user;
     user.username = undefined;
     user.password = undefined;
-    user.save(err => {
-      if(err) {
+    user.save()
+      .then(() => {
+        res.redirect('/profile');
+      })
+      .catch(err => {
         req.flash('error', 'Error Unlinking Local Account!');
         res.redirect('/profile');
-      }
-      res.redirect('/profile');
-    });
+      });
   };
 
   const unlinkGithub = (req, res) => {
@@ -41,13 +42,14 @@ const authController = () => {
     user.githubID = undefined;
     user.githubEmail = undefined;
     user.githubName = undefined;
-    user.save(err => {
-      if(err) {
+    user.save()
+      .then(() => {
+        res.redirect('/profile');
+      })
+      .catch(err => {
         req.flash('error', 'Error Unlinking Github Account!');
         res.redirect('/profile');
-      }
-      res.redirect('/profile');
-    });
+      });
   };
 
   const githubAuthenticate = (req, res) => passport.authenticate('github')(req, res);

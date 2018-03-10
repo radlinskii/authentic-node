@@ -11,16 +11,14 @@ indexRouter.route('')
         isLoggedIn: true,
         user: req.user,
         message: err,
-      },
-      );
+      },);
     } else {
       res.render('index', {
         title: 'Authentic Node',
         isLoggedIn: false,
         user: {},
         message: err,
-      },
-      );
+      },);
     }
   });
 

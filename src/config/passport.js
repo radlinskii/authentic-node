@@ -1,5 +1,5 @@
 import passport from 'passport';
-import User from '../models/user.model';
+import User from '../models/user';
 
 export default (app) => {
   app.use(passport.initialize());
@@ -10,11 +10,13 @@ export default (app) => {
   });
 
   passport.deserializeUser((id, done) => {
-    User.findById(id, function(err, user) {
-      done(err, user);
-    });
+    User.findById(id)
+      .then((user) => {
+        done(null, user);
+      })
+      .catch(err => { done(err, false); });
   });
 
-  require('../strategies/local.strategy')(passport);
-  require('../strategies/github.strategy')(passport);
+  require('../strategies/local')(passport);
+  require('../strategies/github')(passport);
 };

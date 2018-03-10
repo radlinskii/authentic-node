@@ -13,10 +13,9 @@ import todosRouter from './routes/todos';
 import profileRouter from './routes/profile';
 
 const app = express();
-mongoose.connect(process.env.DatabaseURL).then(
-  () => { console.info('connected to db'); },
-  err => { console.error(err); }
-);
+mongoose.connect(process.env.DatabaseURL)
+  .then(() => { console.info('connected to db'); })
+  .catch(err => { console.error(err); });
 
 app.use(express.static('public'));
 app.use(bodyParser.json());

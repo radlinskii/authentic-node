@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Todo from '../models/todo.model';
+import Todo from '../models/todo';
 
 const todoController = () => {
   const middleware = (req, res, next) => {
@@ -11,37 +11,39 @@ const todoController = () => {
   };
 
   const getTodos = (req, res) => {
-    Todo.find({ author: req.user.id, }, (err, results) => {
-      if(err) {
+    Todo.find({ author: req.user.id, })
+      .then(results => {
+        res.render('todos', { title: 'To Do List', todos: results, isLoggedIn: req.isAuthenticated(), });
+      })
+      .catch(err => {
         req.flash('error', 'Error Loading To Do List!');
         res.redirect('/');
-      }
-      res.render('todos', { title: 'To Do List', todos: results, isLoggedIn: req.isAuthenticated(), });
-    });
+      });
   };
 
   const getTodoById = (req, res) => {
     const id = mongoose.Types.ObjectId(req.params.id);
-    Todo.findOne({ _id: id, }, (err, result) => {
-      if(err) {
+    Todo.findOne({ _id: id, })
+      .then(result => {
+        if(!result) {
+          req.flash('error', 'No such To Do!');
+          res.redirect('/todos');
+        }
+        else if(result.author.toString() === req.user.id)
+          res.render('todo', {
+            title: 'single todo',
+            todo: result,
+            isLoggedIn: req.isAuthenticated(),
+          });
+        else {
+          req.flash('error', 'Permission Denied!');
+          res.redirect('/todos');
+        }
+      })
+      .catch(err => {
         req.flash('error', 'error loading To Do!');
         res.redirect('/todos');
-      }
-      else if(!result) {
-        req.flash('error', 'No such To Do!');
-        res.redirect('/todos');
-      }
-      else if(result.author.toString() === req.user.id)
-        res.render('todo', {
-          title: 'single todo',
-          todo: result,
-          isLoggedIn: req.isAuthenticated(),
-        });
-      else {
-        req.flash('error', 'Permission Denied!');
-        res.redirect('/todos');
-      }
-    });
+      });
   };
 
   const addZeros = (numStr) => {
@@ -60,33 +62,33 @@ const todoController = () => {
       content: req.body.todoInput,
       date: getMyDate(),
     });
-    todo.save(err => {
-      if (err) {
+    todo.save()
+      .then(() => {
+        res.redirect('/todos');
+      })
+      .catch(err => {
         req.flash('error', 'Error saving To Do to Database!');
         res.redirect('/todos');
-      }
-      res.redirect('/todos');
-    });
+      });
   };
 
   const deleteTodoById = (req, res) => {
-    Todo.findById(req.params.id, (err, todo) => {
-      if (err) {
+    Todo.findById(req.params.id)
+      .then(todo => {
+        if(todo.author.toString() === req.user.id) {
+          todo.remove()
+            .then(() => {
+              res.redirect('/todos');
+            });
+        } else {
+          req.flash('error', 'Permission Denied!');
+          res.redirect('/todos');
+        }
+      })
+      .catch(err => {
         req.flash('error', 'Error deleting To Do from Database!');
         res.redirect('/todos');
-      }
-      if(todo.author.toString() === req.user.id) {
-        todo.remove((err) => {
-          if(err) {
-            req.flash('error', 'Error deleting To Do from Database!');
-            res.redirect('/todos');
-          } else res.redirect('/todos');
-        });
-      } else {
-        req.flash('error', 'Permission Denied!');
-        res.redirect('/todos');
-      }
-    });
+      });
   };
 
   const editTodoById = (req, res) => {
@@ -94,13 +96,14 @@ const todoController = () => {
       content: req.body.editInput,
       date: getMyDate(),
     });
-    Todo.findByIdAndUpdate(req.params.id, todo, (err) => {
-      if (err) {
+    Todo.findByIdAndUpdate(req.params.id, todo)
+      .then(() => {
+        res.redirect(`/todos/${req.params.id}`);
+      })
+      .catch(err => {
         req.flash('error', 'Error editing To Do!');
         res.redirect('/todos');
-      }
-      res.redirect(`/todos/${req.params.id}`);
-    });
+      });
   };
 
   return {
