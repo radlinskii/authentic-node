@@ -1,5 +1,10 @@
 <%- include common/header.ejs %>
 <%- include common/navbar.ejs %>
+<% if(messages.success){ %>
+<div class="row text-center alert alert-success">
+    <h1><%= messages.success %></h1>
+</div>
+<% } %>
 <% if(user.githubName && user.username){ %>
 <div class="row text-center">
     <h3>
@@ -7,63 +12,108 @@
     </h3>
 </div>
 <div class="row">
-    <div class="form-group">
-        <label for="githubUnlink">Click to unlink your github account:</label><br/>
-        <a href="/auth/unlink/github" id="githubUnlink">
-            <button class="btn btn-warning">Unlink Github</button>
-        </a>
+    <div class="col col-md-4">
+        <div class="form-group">
+            <label for="githubUnlink">Click to unlink your github account:</label><br/>
+            <a href="/auth/unlink/github" id="githubUnlink">
+                <button class="btn btn-warning">Unlink Github</button>
+            </a>
+        </div>
+        <div class="form-group">
+            <label for="localUnlink">Click to unlink your local account:</label><br/>
+            <a href="/auth/unlink/local" id="localUnlink">
+                <button class="btn btn-warning">Unlink Local</button>
+            </a>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="localUnlink">Click to unlink your local account:</label><br/>
-        <a href="/auth/unlink/local" id="localUnlink">
-            <button class="btn btn-warning">Unlink Local</button>
-        </a>
-    </div>
-</div>
+
 <% } else if(!user.username) { %>
 <div class="row text-center">
     <h3>
         Hello <%= user.githubName %>!
     </h3>
 </div>
+<div class="row">
+    <div class="col col-md-4"></div>
 <% } else if(!user.githubName) { %>
 <div class="row text-center">
     <h3>
         Hello <%= user.username %>!
     </h3>
 </div>
-<% } %>
 <div class="row">
+    <div class="col col-md-4"></div>
+<% } %>
     <% if(user.username) { %>
-    <div id="deleteAccountContainer">
-        <label id="deleteAccountLabel" for="deleteAccount">Click to delete your account:</label><br/>
-        <button id="deleteAccount" class="btn btn-danger">Delete Account</button>
-    </div>
-    <form id="deleteAccountForm" action="/profile/delete" method="post" style="display: none">
-        <div class="form-group">
-            <label for="password">Confirm deletion of your profile:</label>
-            <input type="password" name="password" id="deleteAccountInput" class="form-control"
-                   placeholder="password" minlength="6"
-                   maxlength="16"
-                   required>
+    <div class="col col-md-4">
+        <div id="changePasswordContainer">
+            <label for="changePassword">Click to change your password:</label><br/>
+            <button id="changePassword" class="btn btn-warning">Change Password</button>
         </div>
-        <input type="submit" value="Delete" class="btn btn-danger">
-        <input type="reset" value="Discard" id="reset" class="btn btn-info">
-    </form>
-    <% } else { %>
-    <div id="deleteAccountContainer">
-        <label id="deleteAccountLabel" for="deleteAccount">Click to delete your account:</label><br/>
-        <button id="deleteAccount" class="btn btn-danger">Delete Account</button>
+        <div id="changePasswordForm" style="display: none">
+            <form action="/profile/changepassword" method="post">
+                <div class="form-group">
+                    <label for="passwordOldInput">Current password:</label>
+                    <input type="password" name="passwordOld" id="passwordOldInput" class="form-control"
+                           minlength="6"
+                           maxlength="16"
+                           onkeyup='checkPass();'
+                           required>
+                    <label for="passwordNewInput">New password:</label>
+                    <input type="password" name="passwordNew" id="passwordNewInput" class="form-control"
+                           minlength="6"
+                           maxlength="16"
+                           onkeyup='checkPass();'
+                           required>
+                    <label for="repeatedPasswordNewInput">Confirm new password:</label>
+                    <input type="password" name="repeatedPasswordNew" id="repeatedPasswordNewInput"
+                           class="form-control"
+                           minlength="6"
+                           maxlength="16"
+                           onkeyup='checkPass();'
+                           required>
+                </div>
+                <input type="submit" value="Save" id="saveChangePassword" class="btn btn-warning" disabled>
+                <input type="reset" value="Discard" id="discardChangePassword" class="btn btn-info">
+            </form>
+        </div>
     </div>
-    <div id="deleteAccountForm" style="display: none;">
-        <label for="submitDelete">Are you sure you want to delete your profile?</label>
-        <form action="/profile/delete" method="post">
-            <input type="submit" value="Yes" name="submitDelete" class="btn btn-danger">
-            <input type="reset" id="reset" value="No" class="btn btn-info">
-        </form>
-
+    <div class="col col-md-4">
+        <div id="deleteAccountContainer">
+            <label for="deleteAccount">Click to delete your account:</label><br/>
+            <button id="deleteAccount" class="btn btn-danger">Delete Account</button>
+        </div>
+        <div id="deleteAccountForm" style="display: none">
+            <form action="/profile/delete" method="post">
+                <div class="form-group">
+                    <label for="password">Confirm deletion of your profile:</label>
+                    <input type="password" name="password" id="deleteAccountInput" class="form-control"
+                           placeholder="password" minlength="6"
+                           maxlength="16"
+                           required>
+                </div>
+                <input type="submit" value="Delete" class="btn btn-danger">
+                <input type="reset" value="Discard" id="discardDelete" class="btn btn-info">
+            </form>
+        </div>
+    </div>
+    <% } else { %>
+    <div class="col col-md-4"></div>
+    <div class="col col-md-4">
+        <div id="deleteAccountContainer">
+            <label id="deleteAccountLabel" for="deleteAccount">Click to delete your account:</label><br/>
+            <button id="deleteAccount" class="btn btn-danger">Delete Account</button>
+        </div>
+        <div id="deleteAccountForm" style="display: none;">
+            <label for="submitDelete">Are you sure you want to delete your profile?</label>
+            <form action="/profile/deletegithub" method="post">
+                <input type="submit" value="Yes" name="submitDelete" class="btn btn-danger">
+                <input type="reset" id="discardDelete" value="No" class="btn btn-info">
+            </form>
+        </div>
     </div>
     <% } %>
+</div>
 </div>
 <script src="js/profile.js" type="text/javascript"></script>
 <%- include common/footer.ejs %>

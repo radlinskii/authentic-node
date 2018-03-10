@@ -1,4 +1,5 @@
 import User from '../models/user.model';
+import Todo from '../models/todo.model';
 
 const profileController = () => {
   const middleware = (req, res, next) => {
@@ -18,51 +19,78 @@ const profileController = () => {
   };
 
   const postDelete = (req, res) => {
-    if (!req.body.submitDelete) {
-      User.findById(req.user.id, (err, user) => {
-        if (err) {
-          req.flash('error', 'Error deleting Account from Database!');
-          res.redirect('/profile');
-        }
-        if (!user.validPassword(req.body.password)) {
-          req.flash('error', 'Incorrect Password!');
-          res.redirect('/profile');
-        } else {
-          user.remove((err) => {
+    User.findById(req.user.id, (err, user) => {
+      if (err) {
+        req.flash('error', 'Error deleting Account from Database!');
+        res.redirect('/profile');
+      }
+      if (!user.validPassword(req.body.password)) {
+        req.flash('error', 'Incorrect Password!');
+        res.redirect('/profile');
+      } else {
+        Todo.deleteMany({ author: req.user.id.toString(), }, err => {
+          if (err) {
+            req.flash('error', 'Error deleting User from Database!');
+            res.redirect('/profile');
+          }
+          user.remove(err => {
             if (err) {
               req.flash('error', 'Error deleting User from Database!');
               res.redirect('/profile');
             } else {
               if (user.username) req.flash('error', `Goodbye ${user.username}!`);
-              else req.flash('error', `Goodbye ${user.githubName}!`);
+              else req.flash('success', `Goodbye ${user.githubName}!`);
               res.redirect('/');
             }
           });
-        }
-      });
-    } else {
-      User.findOne({ githubID: req.user.githubID, }, (err, user) => {
+        });
+      }
+    });
+  };
+
+  const postDeleteGithub = (req, res) => {
+    User.findOne({ githubID: req.user.githubID, }, (err, user) => {
+      if (err) {
+        req.flash('error', 'Error deleting Account from Database!');
+        res.redirect('/profile');
+      }
+      Todo.deleteMany({ author: req.user.id.toString(), }, err => {
         if (err) {
-          req.flash('error', 'Error deleting Account from Database!');
+          req.flash('error', 'Error deleting User from Database!');
           res.redirect('/profile');
         }
-        user.remove((err) => {
+        user.remove(err => {
           if (err) {
             req.flash('error', 'Error deleting User from Database!');
             res.redirect('/profile');
           } else {
-            req.flash('error', `Goodbye ${user.githubName}!`);
+            req.flash('success', `Goodbye ${user.githubName}!`);
             res.redirect('/');
           }
         });
       });
-    }
+    });
+  };
+
+  const postChangePassword = (req, res) => {
+    const user = req.user;
+    user.password = user.generateHash(req.body.passwordNew);
+    User.findByIdAndUpdate(user._id, user, err => {
+      if (err) {
+        req.flash('error', 'Error editing password!');
+        res.redirect('/profile');
+      }
+      req.flash('success', 'Password successfully changed!');
+      res.redirect('/profile');
+    });
   };
 
   return {
     middleware: middleware,
     getProfile: getProfile,
     postDelete: postDelete,
+    postDeleteGithub: postDeleteGithub,
+    postChangePassword: postChangePassword,
   };
 };
 

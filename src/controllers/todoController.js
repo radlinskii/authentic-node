@@ -75,7 +75,7 @@ const todoController = () => {
         req.flash('error', 'Error deleting To Do from Database!');
         res.redirect('/todos');
       }
-      if(todo.author === req.user.id) {
+      if(todo.author.toString() === req.user.id) {
         todo.remove((err) => {
           if(err) {
             req.flash('error', 'Error deleting To Do from Database!');
@@ -94,7 +94,7 @@ const todoController = () => {
       content: req.body.editInput,
       date: getMyDate(),
     });
-    Todo.findByIdAndUpdate(req.params.id, todo,(err) => {
+    Todo.findByIdAndUpdate(req.params.id, todo, (err) => {
       if (err) {
         req.flash('error', 'Error editing To Do!');
         res.redirect('/todos');

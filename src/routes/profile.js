@@ -11,6 +11,11 @@ profileRouter.route('')
 profileRouter.route('/delete')
   .post(profileController.postDelete);
 
+profileRouter.route('/deletegithub')
+  .post(profileController.postDeleteGithub);
+
+profileRouter.route('/changepassword')
+  .post(profileController.postChangePassword);
 
 
 module.exports = profileRouter;
