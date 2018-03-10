@@ -57,50 +57,7 @@
     </div>
 </div>
 <% } else { %>
-<div class="row text-center">
-    <% if(!user.githubID) { %>
-    <div class="row text-center">
-        <h3>
-            Hello <%= user.username %>!
-        </h3>
-    </div>
-    <div class="col-md-4 col-sm-4">
-        <div class="form-group">
-            <label for="github">Link your GitHub account here</label><br/>
-            <a href="/auth/github/connect" id="github"><img src="images/GithubLogo.png"
-                                                            style="width: 80px; height: 80px;"></a>
-        </div>
-    </div>
-    <% }
-    if (!user.username){ %>
-    <div class="row text-center">
-        <h3>
-            Hello <%= user.githubName %>!
-        </h3>
-    </div>
-    <div class="col-md-4 col-sm-4">
-        <h3>Add a local profile:</h3>
-        <form name="signUpForm" action="/auth/signup" method="post">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" name="username" class="form-control" id="username" minlength="6"
-                       maxlength="16" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" name="password" class="form-control" id="password" minlength="6"
-                       onkeyup='checkPass();' maxlength="16" required>
-            </div>
-            <div class="form-group">
-                <label for="repeatedPassword">Repeat Password:</label>
-                <input type="password" name="repeatedPassword" class="form-control" id="repeatedPassword" minlength="6"
-                       onkeyup='checkPass();' maxlength="16" required>
-            </div>
-            <input type="submit" value="Sign Up" id="signUpSubmit" class="btn btn-primary" disabled>
-        </form>
-    </div>
-    <% } %>
-</div>
+<div class="row text-center"></div>
 <% } %>
 </div>
 <script src="js/index.js" type="text/javascript"></script>

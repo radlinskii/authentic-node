@@ -3,14 +3,14 @@ import mongoose from 'mongoose';
 import User from '../models/user.model';
 
 module.exports = (passport) => {
-  passport.use(new GithubStrategy({
+  passport.use('github', new GithubStrategy({
     clientID: process.env.githubClientID,
     clientSecret: process.env.githubClientSecret,
     callbackURL: process.env.githubCalbbackURL,
     passReqToCallback : true,
   },
   (req, accessToken, refreshToken, profile, done) => {
-    if (!req.user) {
+    if(!req.user) {
       User.findOne({ githubID: profile.id, }, (err, result) => {
         if (err) return done(err, false, { message: 'Database error.', });
         if (result) return done(null, result);
@@ -42,6 +42,5 @@ module.exports = (passport) => {
         }
       });
     }
-  }
-  ));
+  }));
 };

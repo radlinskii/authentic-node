@@ -34,7 +34,6 @@
     </h3>
 </div>
 <div class="row">
-    <div class="col col-md-4"></div>
 <% } else if(!user.githubName) { %>
 <div class="row text-center">
     <h3>
@@ -42,9 +41,17 @@
     </h3>
 </div>
 <div class="row">
-    <div class="col col-md-4"></div>
 <% } %>
     <% if(user.username) { %>
+    <% if(!user.githubID) { %>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="github">Link your GitHub account here</label><br/>
+            <a href="/auth/github/connect" id="github"><img src="images/GithubLogo.png"
+                                                            style="width: 80px; height: 80px;"></a>
+        </div>
+    </div>
+    <% } %>
     <div class="col col-md-4">
         <div id="changePasswordContainer">
             <label for="changePassword">Click to change your password:</label><br/>
@@ -98,6 +105,29 @@
         </div>
     </div>
     <% } else { %>
+    <% if (!user.username) { %>
+    <div class="col-md-4">
+        <h3>Add a local profile:</h3>
+        <form name="signUpForm" action="/profile/connect" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" class="form-control" id="username" minlength="6"
+                       maxlength="16" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control" id="password" minlength="6"
+                       onkeyup='checkConnectPass();' maxlength="16" required>
+            </div>
+            <div class="form-group">
+                <label for="repeatedPassword">Repeat Password:</label>
+                <input type="password" name="repeatedPassword" class="form-control" id="repeatedPassword" minlength="6"
+                       onkeyup='checkConnectPass();' maxlength="16" required>
+            </div>
+            <input type="submit" value="Sign Up" id="signUpSubmit" class="btn btn-primary" disabled>
+        </form>
+    </div>
+    <% } %>
     <div class="col col-md-4"></div>
     <div class="col col-md-4">
         <div id="deleteAccountContainer">

@@ -1,5 +1,6 @@
 import User from '../models/user.model';
 import Todo from '../models/todo.model';
+import passport from 'passport/lib/index';
 
 const profileController = () => {
   const middleware = (req, res, next) => {
@@ -38,8 +39,7 @@ const profileController = () => {
               req.flash('error', 'Error deleting User from Database!');
               res.redirect('/profile');
             } else {
-              if (user.username) req.flash('error', `Goodbye ${user.username}!`);
-              else req.flash('success', `Goodbye ${user.githubName}!`);
+              req.flash('success', `Goodbye ${user.username}!`);
               res.redirect('/');
             }
           });
@@ -85,10 +85,17 @@ const profileController = () => {
     });
   };
 
+  const postConnect = (req, res) => passport.authenticate('local-signup', {
+    successRedirect: '/profile',
+    failureRedirect: '/profile',
+    failureFlash: true,
+  })(req, res);
+
   return {
     middleware: middleware,
     getProfile: getProfile,
     postDelete: postDelete,
+    postConnect: postConnect,
     postDeleteGithub: postDeleteGithub,
     postChangePassword: postChangePassword,
   };
