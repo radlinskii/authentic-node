@@ -34,6 +34,7 @@
 </div>
 <% } %>
 <div class="row">
+    <% if(user.username) { %>
     <div id="deleteAccountContainer">
         <label id="deleteAccountLabel" for="deleteAccount">Click to delete your account:</label><br/>
         <button id="deleteAccount" class="btn btn-danger">Delete Account</button>
@@ -49,6 +50,20 @@
         <input type="submit" value="Delete" class="btn btn-danger">
         <input type="reset" value="Discard" id="reset" class="btn btn-info">
     </form>
+    <% } else { %>
+    <div id="deleteAccountContainer">
+        <label id="deleteAccountLabel" for="deleteAccount">Click to delete your account:</label><br/>
+        <button id="deleteAccount" class="btn btn-danger">Delete Account</button>
+    </div>
+    <div id="deleteAccountForm" style="display: none;">
+        <label for="submitDelete">Are you sure you want to delete your profile?</label>
+        <form action="/profile/delete" method="post">
+            <input type="submit" value="Yes" name="submitDelete" class="btn btn-danger">
+            <input type="reset" id="reset" value="No" class="btn btn-info">
+        </form>
+
+    </div>
+    <% } %>
 </div>
-<script src="js/deleteAccount.js" type="text/javascript"></script>
+<script src="js/profile.js" type="text/javascript"></script>
 <%- include common/footer.ejs %>
