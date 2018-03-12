@@ -39,6 +39,10 @@ const mailerController = () => {
               res.redirect('/profile');
             }
           });
+        })
+        .catch(err => {
+          req.flash('error', 'Error resetting password!');
+          res.redirect('/profile');
         });
     } else {
       req.flash('error', 'Permission Denied');
@@ -79,7 +83,7 @@ const mailerController = () => {
               .then(() => {
                 transporter.sendMail(message, (err, info) => {
                   if (err) {
-                    req.flash('error', 'Error resetting password!ffdf');
+                    req.flash('error', 'Error resetting password!');
                     res.redirect('/');
                   } else {
                     req.flash('success', 'New password send to your mail');
