@@ -1,25 +1,9 @@
 import express from 'express';
+import indexController from '../controllers/indexController';
 
 const indexRouter = express.Router();
 
 indexRouter.route('')
-  .get((req, res) => {
-    const err = req.flash('error')[0];
-    if(req.isAuthenticated()) {
-      res.render('index', {
-        title: 'Authentic Node',
-        isLoggedIn: true,
-        user: req.user,
-        message: err,
-      },);
-    } else {
-      res.render('index', {
-        title: 'Authentic Node',
-        isLoggedIn: false,
-        user: {},
-        message: err,
-      },);
-    }
-  });
+  .get(indexController.getIndex);
 
 module.exports = indexRouter;

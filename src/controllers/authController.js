@@ -40,7 +40,6 @@ const authController = () => {
   const unlinkGithub = (req, res) => {
     const user = req.user;
     user.githubID = undefined;
-    user.githubEmail = undefined;
     user.githubName = undefined;
     user.save()
       .then(() => {
@@ -60,7 +59,7 @@ const authController = () => {
     failureFlash: true,
   })(req, res);
 
-  const githubAuthorize = (req, res) => passport.authorize('github', { scope: [ 'user', ], })(req, res);
+  const githubAuthorize = (req, res) => passport.authorize('github')(req, res);
 
   const githubAuthorizeCB = (req, res) => passport.authorize('github', {
     successRedirect: '/profile',

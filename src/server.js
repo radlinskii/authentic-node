@@ -11,6 +11,7 @@ import auth from './routes/auth';
 import indexRouter from './routes/index';
 import todosRouter from './routes/todos';
 import profileRouter from './routes/profile';
+import mailerRouter from './routes/mailer';
 
 const app = express();
 mongoose.connect(process.env.DatabaseURL)
@@ -40,6 +41,7 @@ app.listen(process.env.PORT, (err) => {
 app.use('/auth', auth);
 app.use('/todos', todosRouter);
 app.use('/profile', profileRouter);
+app.use('/email', mailerRouter);
 app.use('/', indexRouter);
 app.use((req,res) => {
   req.flash('error', 'Page not found!');

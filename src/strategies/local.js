@@ -9,7 +9,7 @@ module.exports = (passport) => {
     passwordField: 'loginPassword',
   },
   (username, password, done) => {
-    User.findOne({ username: username, })
+    User.findOne({ $or: [{ username: username, }, { email: username, },], })
       .then(user => {
         if (!user) return done(null, false, { message: 'Incorrect username or password.', });
         else {
@@ -26,14 +26,33 @@ module.exports = (passport) => {
     passReqToCallback : true,
   },
   (req, username, password, done) => {
+    User.findOne({ $or: [{ username: username, }, { email: req.body.email, },], })
+      .then(result => {
+        if(!result) {
+          const user = new User();
+          user._id = new mongoose.Types.ObjectId();
+          user.email = req.body.email;
+          user.username = username;
+          user.password = user.generateHash(password);
+          user.save(() => {
+            return done(null, user);
+          });
+        } else return done(null, false, { message: 'Username or Email already in use.', });
+      })
+      .catch(err => done(err, false, { message: 'Error registering.', }));
+  }
+  ));
+
+  passport.use('local-connect', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback : true,
+  },
+  (req, username, password, done) => {
     User.findOne({ username: username, })
       .then(result => {
         if(!result) {
-          let user;
-          if(!req.user) {
-            user = new User();
-            user._id = new mongoose.Types.ObjectId();
-          } else user = req.user;
+          const user = req.user;
           user.username = username;
           user.password = user.generateHash(password);
           user.save(() => {

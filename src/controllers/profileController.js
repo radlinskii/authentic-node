@@ -76,12 +76,12 @@ const profileController = () => {
         }
       })
       .catch(err => {
-        req.flash('error', 'Error deleting Account from Database!');
+        req.flash('error', 'Error changing password!');
         res.redirect('/profile');
       });
   };
 
-  const postConnect = (req, res) => passport.authenticate('local-signup', {
+  const postConnect = (req, res) => passport.authenticate('local-connect', {
     successRedirect: '/profile',
     failureRedirect: '/profile',
     failureFlash: true,

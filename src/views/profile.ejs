@@ -63,20 +63,20 @@
                     <label for="passwordOldInput">Current password:</label>
                     <input type="password" name="passwordOld" id="passwordOldInput" class="form-control"
                            minlength="6"
-                           maxlength="16"
+                           maxlength="32"
                            onkeyup='checkPass();'
                            required>
                     <label for="passwordNewInput">New password:</label>
                     <input type="password" name="passwordNew" id="passwordNewInput" class="form-control"
                            minlength="6"
-                           maxlength="16"
+                           maxlength="32"
                            onkeyup='checkPass();'
                            required>
                     <label for="repeatedPasswordNewInput">Confirm new password:</label>
                     <input type="password" name="repeatedPasswordNew" id="repeatedPasswordNewInput"
                            class="form-control"
                            minlength="6"
-                           maxlength="16"
+                           maxlength="32"
                            onkeyup='checkPass();'
                            required>
                 </div>
@@ -84,6 +84,14 @@
                 <input type="reset" value="Discard" id="discardChangePassword" class="btn btn-info">
             </form>
         </div>
+        <form name="signInForm" action="/email/send" method="post">
+            <div class="form-group">
+                <label for="emailReset">Email to send temporary password:</label>
+                <input type="email" name="emailReset" class="form-control" id="emailReset" minlength="6"
+                       maxlength="32" value="<%=user.email%>" required>
+            </div>
+            <input type="submit" value="Reset" class="btn btn-primary">
+        </form>
     </div>
     <div class="col col-md-4">
         <div id="deleteAccountContainer">
@@ -96,7 +104,7 @@
                     <label for="password">Confirm deletion of your profile:</label>
                     <input type="password" name="password" id="deleteAccountInput" class="form-control"
                            placeholder="password" minlength="6"
-                           maxlength="16"
+                           maxlength="32"
                            required>
                 </div>
                 <input type="submit" value="Delete" class="btn btn-danger">
@@ -112,17 +120,17 @@
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" name="username" class="form-control" id="username" minlength="6"
-                       maxlength="16" required>
+                       maxlength="32" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" name="password" class="form-control" id="password" minlength="6"
-                       onkeyup='checkConnectPass();' maxlength="16" required>
+                       onkeyup='checkConnectPass();' maxlength="32" required>
             </div>
             <div class="form-group">
                 <label for="repeatedPassword">Repeat Password:</label>
                 <input type="password" name="repeatedPassword" class="form-control" id="repeatedPassword" minlength="6"
-                       onkeyup='checkConnectPass();' maxlength="16" required>
+                       onkeyup='checkConnectPass();' maxlength="32" required>
             </div>
             <input type="submit" value="Sign Up" id="signUpSubmit" class="btn btn-primary" disabled>
         </form>

@@ -16,16 +16,24 @@
         <h3>Sign In</h3>
         <form name="signInForm" action="/auth/signin" method="post">
             <div class="form-group">
-                <label for="loginUsername">Username:</label>
+                <label for="loginUsername">Username or Email:</label>
                 <input type="text" name="loginUsername" class="form-control" id="loginUsername" minlength="6"
-                       maxlength="16" required>
+                       maxlength="32" required>
             </div>
             <div class="form-group">
                 <label for="loginPassword">Password:</label>
                 <input type="password" name="loginPassword" class="form-control" id="loginPassword" minlength="6"
-                       maxlength="16" required>
+                       maxlength="32" required>
             </div>
             <input type="submit" value="Sign In" class="btn btn-primary">
+        </form>
+        <form name="signInForm" action="/email/reset" method="post">
+            <div class="form-group">
+                <label for="emailReset">Email to send temporary password:</label>
+                <input type="email" name="emailReset" class="form-control" id="emailReset" minlength="6"
+                       maxlength="32" required>
+            </div>
+            <input type="submit" value="Reset" class="btn btn-primary">
         </form>
     </div>
     <div class="col-md-4 col-sm-4 text-center">
@@ -40,17 +48,22 @@
             <div class="form-group">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" class="form-control" minlength="6"
-                       maxlength="16" required>
+                       maxlength="32" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address:</label>
+                <input type="email" name="email" class="form-control" id="email" minlength="6"
+                       maxlength="32" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" name="password" class="form-control" id="password" minlength="6"
-                       onkeyup='checkPass();' maxlength="16" required>
+                       onkeyup='checkPass();' maxlength="32" required>
             </div>
             <div class="form-group">
                 <label for="repeatedPassword">Repeat Password:</label>
                 <input type="password" name="repeatedPassword" id="repeatedPassword" class="form-control" minlength="6"
-                       onkeyup='checkPass();' maxlength="16" required>
+                       onkeyup='checkPass();' maxlength="32" required>
             </div>
             <input type="submit" value="Sign Up" id="signUpSubmit" class="btn btn-primary" disabled>
         </form>

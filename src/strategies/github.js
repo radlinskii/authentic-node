@@ -7,6 +7,7 @@ module.exports = (passport) => {
     clientID: process.env.githubClientID,
     clientSecret: process.env.githubClientSecret,
     callbackURL: process.env.githubCalbbackURL,
+    scope: 'user:email',
     passReqToCallback : true,
   },
   (req, accessToken, refreshToken, profile, done) => {
@@ -19,7 +20,7 @@ module.exports = (passport) => {
             user._id = new mongoose.Types.ObjectId();
             user.githubID = profile.id;
             user.githubName = profile.displayName;
-            user.githubEmail = profile.emails[0].value;
+            user.email = profile.emails[0].value;
             user.save(() => done(null, user));
           }
         })
@@ -32,7 +33,6 @@ module.exports = (passport) => {
             const user = req.user;
             user.githubID = profile.id;
             user.githubName = profile.displayName;
-            user.githubEmail = profile.emails[0].value;
             user.save(() => done(null, user));
           }
         })

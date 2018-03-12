@@ -16,6 +16,7 @@ this app is using
 * mongoose
 * oauth
 * bcrypt
+* nodemailer
 * ejs
 * sass
 * babel
