@@ -27,7 +27,7 @@
                            maxlength="32" required>
                 </div>
                 <input type="submit" value="Unlink" id="unlinkGithubSubmit" class="btn btn-primary">
-                <input type="reset" value="Discard" id="discardUnlinkGithub" class="btn btn-default"><br/>
+                <input type="reset" value="Discard" id="discardUnlinkGithub" class="btn btn-info"><br/>
                 <input type="reset" id="resetPassword1" value="forgotten your password?" class="btn btn-default btn-xs">
             </form>
         </div>
@@ -72,7 +72,7 @@
     <div class="col col-md-4">
         <div id="changePasswordContainer">
             <label for="changePassword">Click to change your password:</label><br/>
-            <button id="changePassword" class="btn btn-warning">Change Password</button>
+            <button id="changePassword" class="btn btn-default">Change Password</button>
         </div>
         <div id="changePasswordForm" style="display: none">
             <form action="/profile/changepassword" method="post">
@@ -97,7 +97,7 @@
                            onkeyup='checkPass();'
                            required>
                 </div>
-                <input type="submit" value="Save" id="saveChangePassword" class="btn btn-warning" disabled>
+                <input type="submit" value="Save" id="saveChangePassword" class="btn btn-primary" disabled>
                 <input type="reset" value="Discard" id="discardChangePassword" class="btn btn-info"><br/>
                 <input type="reset" id="resetPassword" value="forgotten your password?" class="btn btn-default btn-xs">
             </form>
@@ -189,7 +189,7 @@
         <div class="col col-md-4">
             <div id="changeEmailContainer">
                 <label for="changeEmail">Click to change your email address:</label><br/>
-                <button id="changeEmail" class="btn btn-danger">Change Email</button>
+                <button id="changeEmail" class="btn btn-default">Change Email</button>
             </div>
             <div id="changeEmailForm" style="display: none">
                 <form action="/profile/emailchange" method="post">
@@ -205,7 +205,7 @@
                                maxlength="32"
                                required>
                     </div>
-                    <input type="submit" value="Save" class="btn btn-danger">
+                    <input type="submit" value="Save" class="btn btn-primary">
                     <input type="reset" value="Discard" id="discardChangeEmail" class="btn btn-info"><br/>
                     <input type="reset" id="resetPassword3" value="forgotten your password?" class="btn btn-default btn-xs">
                 </form>
