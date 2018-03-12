@@ -17,6 +17,9 @@ profileRouter.route('/deletegithub')
 profileRouter.route('/changepassword')
   .post(profileController.postChangePassword);
 
+profileRouter.route('/emailchange')
+  .post(profileController.postChangeEmail);
+
 profileRouter.route('/connect')
   .post(profileController.postConnect);
 

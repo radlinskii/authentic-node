@@ -24,26 +24,25 @@ const authController = () => {
   };
 
   const unlinkGithub = (req, res) => {
-    if(req.user) {
-      const user = req.user;
-      if (user.validPassword(req.body.unlinkGithubInput)) {
-        user.githubID = undefined;
-        user.githubName = undefined;
-        user.save()
-          .then(() => {
-            res.redirect('/profile');
-          })
-          .catch(err => {
-            req.flash('error', 'Error Unlinking Github Account!');
-            res.redirect('/profile');
-          });
-      } else {
-        req.flash('error', 'Incorrect password!');
-        res.redirect('/profile');
-      }
-    } else {
+    if (!req.user) {
       req.flash('error', 'Permission Denied!');
       res.redirect('/profile');
+    } else {
+      const user = req.user;
+      if (!user.validPassword(req.body.unlinkGithubInput)) {
+        req.flash('error', 'Incorrect password!');
+        res.redirect('/profile');
+      } else {
+        user.githubID = undefined;
+        user.githubName = undefined;
+        user.save(err => {
+          if (err) {
+            req.flash('error', 'Error Unlinking Local Account!');
+            res.redirect('/profile');
+          }
+          res.redirect('/profile');
+        });
+      }
     }
   };
 

@@ -2,7 +2,7 @@ const indexController = () => {
 
   const getIndex = (req, res) => {
     const err = req.flash('error')[0];
-    if(req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
       res.render('index', {
         title: 'Authentic Node',
         isLoggedIn: true,

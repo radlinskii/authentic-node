@@ -14,9 +14,10 @@ import profileRouter from './routes/profile';
 import mailerRouter from './routes/mailer';
 
 const app = express();
-mongoose.connect(process.env.DatabaseURL)
-  .then(() => { console.info('connected to db'); })
-  .catch(err => { console.error(err); });
+mongoose.connect(process.env.DatabaseURL, err => {
+  if (err) console.error(err);
+  else console.info('connected to db');
+});
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
@@ -43,7 +44,7 @@ app.use('/todos', todosRouter);
 app.use('/profile', profileRouter);
 app.use('/email', mailerRouter);
 app.use('/', indexRouter);
-app.use((req,res) => {
+app.use((req, res) => {
   req.flash('error', 'Page not found!');
   res.redirect('/');
 });

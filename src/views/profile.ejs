@@ -122,9 +122,9 @@
         <div id="deleteAccountForm" style="display: none">
             <form action="/profile/delete" method="post">
                 <div class="form-group">
-                    <label for="password">Confirm deletion of your profile:</label>
+                    <label for="deleteAccountInput">Confirm deletion of your profile:</label>
                     <input type="password" name="password" id="deleteAccountInput" class="form-control"
-                           placeholder="password" minlength="6"
+                           minlength="6"
                            maxlength="32"
                            required>
                 </div>
@@ -185,6 +185,44 @@
     </div>
     <% } %>
 </div>
+    <div class="row">
+        <div class="col col-md-4">
+            <div id="changeEmailContainer">
+                <label for="changeEmail">Click to change your email address:</label><br/>
+                <button id="changeEmail" class="btn btn-danger">Change Email</button>
+            </div>
+            <div id="changeEmailForm" style="display: none">
+                <form action="/profile/emailchange" method="post">
+                    <div class="form-group">
+                        <label for="changeEmailInput">New Email Address:</label>
+                        <input type="email" name="changeEmailInput" id="changeEmailInput" class="form-control"
+                               minlength="6"
+                               maxlength="32"
+                               required>
+                        <label for="changeEmailPassword">Confirm changing your email with a password:</label>
+                        <input type="password" name="changeEmailPassword" id="changeEmailPassword" class="form-control"
+                               minlength="6"
+                               maxlength="32"
+                               required>
+                    </div>
+                    <input type="submit" value="Save" class="btn btn-danger">
+                    <input type="reset" value="Discard" id="discardChangeEmail" class="btn btn-info"><br/>
+                    <input type="reset" id="resetPassword3" value="forgotten your password?" class="btn btn-default btn-xs">
+                </form>
+            </div>
+            <div id="resetPasswordForm3" style="display: none">
+                <form name="resetPasswordForm" action="/email/send" method="post">
+                    <div class="form-group">
+                        <label for="emailReset3">Email to send temporary password:</label>
+                        <input type="email" name="emailReset" class="form-control" id="emailReset3" minlength="6"
+                               maxlength="32" required value=<%=user.email%>>
+                    </div>
+                    <input type="submit" value="Send" id="saveResetPassword3" class="btn btn-primary">
+                    <input type="reset" value="Discard" id="discardResetPassword3" class="btn btn-default">
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="js/profile.js" type="text/javascript"></script>
 <%- include common/footer.ejs %>

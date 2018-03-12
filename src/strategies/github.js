@@ -8,44 +8,45 @@ module.exports = (passport) => {
     clientSecret: process.env.githubClientSecret,
     callbackURL: process.env.githubCalbbackURL,
     scope: 'user:email',
-    passReqToCallback : true,
+    passReqToCallback: true,
   },
   (req, accessToken, refreshToken, profile, done) => {
-    if(!req.user) {
-      User.findOne({ githubID: profile.id, })
-        .then(result => {
-          if (result) return done(null, result);
-          else {
-            User.find({ email: profile.emails[0].value, })
-              .then(results => {
-                if(!results.length){
-                  const user = new User();
-                  user._id = new mongoose.Types.ObjectId();
-                  user.githubID = profile.id;
-                  user.githubName = profile.displayName;
-                  user.email = profile.emails[0].value;
-                  user.save()
-                    .then(() => done(null, user));
-                } else {
-                  return done(null, false, { message: 'Your github email is already used', });
-                }
+    if (!req.user) {
+      User.findOne({ githubID: profile.id, }, (err, result) => {
+        if (err) return done(err, false, { message: 'Database error.', });
+        if (result) return done(null, result);
+        else {
+          User.find({ email: profile.emails[0].value, }, (err, results) => {
+            if (results.length) {
+              return done(null, false, { message: 'Your github email is already used', });
+            } else {
+              const user = new User();
+              user._id = new mongoose.Types.ObjectId();
+              user.githubID = profile.id;
+              user.githubName = profile.displayName;
+              user.email = profile.emails[0].value;
+              user.save(err => {
+                if (err) return done(err, false, { message: 'Database error.', });
+                return done(null, user);
               });
-          }
-        })
-        .catch(err => done(err, false, { message: 'Database error.', }));
+            }
+          });
+        }
+      });
     } else {
-      User.findOne({ githubID: profile.id, })
-        .then(result => {
-          if (result) return done(null, false, { message: 'Can\'t link github account to multiple local accounts.', });
-          else {
-            const user = req.user;
-            user.githubID = profile.id;
-            user.githubName = profile.displayName;
-            user.save()
-              .then(() => done(null, user));
-          }
-        })
-        .catch(err => done(err, false, { message: 'Database error.', }));
+      User.findOne({ githubID: profile.id, }, (err, result) => {
+        if (err) return done(err, false, { message: 'Database error.', });
+        if (result) return done(null, false, { message: 'Can\'t link github account to multiple local accounts.', });
+        else {
+          const user = req.user;
+          user.githubID = profile.id;
+          user.githubName = profile.displayName;
+          user.save(err => {
+            if (err) return done(err, false, { message: 'Database error.', });
+            return done(null, user);
+          });
+        }
+      });
     }
   }));
 };
