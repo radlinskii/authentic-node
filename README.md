@@ -13,7 +13,6 @@ https://authentic-node.herokuapp.com/
 - [x] *unlinking* github strategy from the account.
 - [x] *logging in* with a github account authorization.
 - [x] *signing in* with local strategy.
-- [ ] *sending* welcome email message upon registration
 - [x] *registering* with local strategy.
 - [x] *CRUD* operations on ToDos.
 
