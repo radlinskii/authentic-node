@@ -5,7 +5,6 @@ https://authentic-node.herokuapp.com/
 --
 
 ## features:
-- [ ] *sending* welcome confirmation email on updating email address
 - [x] *updating* email address
 - [x] *resetting* forgotten password by sending an email with a new the one.
 - [x] *deleting* the account.
@@ -14,7 +13,7 @@ https://authentic-node.herokuapp.com/
 - [x] *unlinking* github strategy from the account.
 - [x] *logging in* with a github account authorization.
 - [x] *signing in* with local strategy.
-- [ ] *sending* welcome email message on registration
+- [ ] *sending* welcome email message upon registration
 - [x] *registering* with local strategy.
 - [x] *CRUD* operations on ToDos.
 
