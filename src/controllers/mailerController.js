@@ -19,7 +19,7 @@ const mailerController = () => {
 
       const newPassword = (Math.floor(Math.random() * 9000000) + 1000000).toString();
       const message = {
-        from: '"Ignacy Radliński" <authentic@node.com>',
+        from: '"Ignacy Radliński" <radlinskiignacy@gmail.com>',
         to: req.user.email,
         subject: 'reset your password',
         text: 'your new password is...',
@@ -70,7 +70,7 @@ const mailerController = () => {
 
             const newPassword = (Math.floor(Math.random() * 9000000) + 1000000).toString();
             const message = {
-              from: '"Ignacy Radliński" <authentic@node.com>',
+              from: '"Ignacy Radliński" <radlinskiignacy@gmail.com>',
               to: result.email,
               subject: 'reset your password',
               text: 'your new password is...',
