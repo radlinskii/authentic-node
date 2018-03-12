@@ -5,7 +5,6 @@ https://authentic-node.herokuapp.com/
 --
 
 ## Current features:
-- [ ] *changing* email address
 - [x] *resetting* forgotten password by sending an email with a new the one.
 - [x] *deleting* the account.
 - [x] *changing* local password.
