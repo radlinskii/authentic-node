@@ -24,15 +24,53 @@ if(document.getElementById('discardChangePassword'))
 
 if(document.getElementById('resetPassword'))
   document.getElementById('resetPassword').addEventListener('click', () => {
-    document.getElementById('resetPasswordContainer').style.display = 'none';
+    document.getElementById('changePasswordForm').style.display = 'none';
     document.getElementById('resetPasswordForm').style.display = 'block';
   });
 
 if(document.getElementById('discardResetPassword'))
   document.getElementById('discardResetPassword').addEventListener('click', () => {
     document.getElementById('resetPasswordForm').style.display = 'none';
-    document.getElementById('resetPasswordContainer').style.display = 'block';
+    document.getElementById('changePasswordForm').style.display = 'block';
   });
+
+if(document.getElementById('resetPassword2'))
+  document.getElementById('resetPassword2').addEventListener('click', () => {
+    document.getElementById('deleteAccountForm').style.display = 'none';
+    document.getElementById('resetPasswordForm2').style.display = 'block';
+  });
+
+if(document.getElementById('discardResetPassword2'))
+  document.getElementById('discardResetPassword2').addEventListener('click', () => {
+    document.getElementById('resetPasswordForm2').style.display = 'none';
+    document.getElementById('deleteAccountForm').style.display = 'block';
+  });
+
+if(document.getElementById('unlinkGithubBtn'))
+  document.getElementById('unlinkGithubBtn').addEventListener('click', () => {
+    document.getElementById('unlinkGithubContainer').style.display = 'none';
+    document.getElementById('unlinkGithubForm').style.display = 'block';
+  });
+
+if(document.getElementById('discardUnlinkGithub'))
+  document.getElementById('discardUnlinkGithub').addEventListener('click', () => {
+    document.getElementById('unlinkGithubForm').style.display = 'none';
+    document.getElementById('unlinkGithubContainer').style.display = 'block';
+  });
+
+
+if(document.getElementById('resetPassword1'))
+  document.getElementById('resetPassword1').addEventListener('click', () => {
+    document.getElementById('unlinkGithubForm').style.display = 'none';
+    document.getElementById('resetPasswordForm1').style.display = 'block';
+  });
+
+if(document.getElementById('discardResetPassword1'))
+  document.getElementById('discardResetPassword1').addEventListener('click', () => {
+    document.getElementById('resetPasswordForm1').style.display = 'none';
+    document.getElementById('unlinkGithubForm').style.display = 'block';
+  });
+
 
 const checkPass = () => {
   const passOld = document.getElementById('passwordOldInput').value;

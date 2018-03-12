@@ -4,7 +4,7 @@ import mailerController from '../controllers/mailerController';
 const mailerRouter = express.Router();
 
 mailerRouter.route('/send')
-  .get(mailerController.send);
+  .post(mailerController.send);
 
 mailerRouter.route('/reset')
   .post(mailerController.reset);

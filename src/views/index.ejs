@@ -13,6 +13,7 @@
 <% if(!isLoggedIn){ %>
 <div class="row">
     <div class="col-md-4 col-sm-4 text-center">
+        <div id="signInContainer">
         <h3>Sign In</h3>
         <form name="signInForm" action="/auth/signin" method="post">
             <div class="form-group">
@@ -25,16 +26,21 @@
                 <input type="password" name="loginPassword" class="form-control" id="loginPassword" minlength="6"
                        maxlength="32" required>
             </div>
-            <input type="submit" value="Sign In" class="btn btn-primary">
+            <input type="submit" value="Sign In" class="btn btn-primary"><br/>
+            <input type="reset" id="resetPassword" value="forgotten your password?" class="btn btn-default btn-xs">
         </form>
-        <form name="signInForm" action="/email/reset" method="post">
+        </div>
+        <div id="resetPasswordContainer" style="display: none;">
+        <form name="resetPasswordForm" action="/email/reset" method="post">
             <div class="form-group">
                 <label for="emailReset">Email to send temporary password:</label>
                 <input type="email" name="emailReset" class="form-control" id="emailReset" minlength="6"
                        maxlength="32" required>
             </div>
             <input type="submit" value="Reset" class="btn btn-primary">
+            <input type="reset" value="discard" id="discardResetPassword" class="btn btn-default">
         </form>
+        </div>
     </div>
     <div class="col-md-4 col-sm-4 text-center">
         <div class="form-group">

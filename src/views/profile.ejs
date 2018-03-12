@@ -13,17 +13,34 @@
 </div>
 <div class="row">
     <div class="col col-md-4">
-        <div class="form-group">
-            <label for="githubUnlink">Click to unlink your github account:</label><br/>
-            <a href="/auth/unlink/github" id="githubUnlink">
-                <button class="btn btn-warning">Unlink Github</button>
-            </a>
+        <div id="unlinkGithubContainer">
+            <div class="form-group">
+                <label for="githubUnlink">Click to unlink your github account:</label><br/>
+                    <button id="unlinkGithubBtn" class="btn btn-warning">Unlink Github</button>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="localUnlink">Click to unlink your local account:</label><br/>
-            <a href="/auth/unlink/local" id="localUnlink">
-                <button class="btn btn-warning">Unlink Local</button>
-            </a>
+        <div id="unlinkGithubForm" style="display: none;">
+            <form name="unlinkGithubForm" action="/auth/unlink/github" method="post">
+                <div class="form-group">
+                    <label for="unlinkGithubInput">Your password to confirm unlinking github account:</label>
+                    <input type="password" name="unlinkGithubInput" class="form-control" id="unlinkGithubInput" minlength="6"
+                           maxlength="32" required>
+                </div>
+                <input type="submit" value="Unlink" id="unlinkGithubSubmit" class="btn btn-primary">
+                <input type="reset" value="Discard" id="discardUnlinkGithub" class="btn btn-default"><br/>
+                <input type="reset" id="resetPassword1" value="forgotten your password?" class="btn btn-default btn-xs">
+            </form>
+        </div>
+        <div id="resetPasswordForm1" style="display: none">
+            <form name="resetPasswordForm1" action="/email/send" method="post">
+                <div class="form-group">
+                    <label for="emailReset1">Email to send temporary password:</label>
+                    <input type="email" name="emailReset" class="form-control" id="emailReset1" minlength="6"
+                           maxlength="32" required value=<%=user.email%>>
+                </div>
+                <input type="submit" value="Send" id="saveResetPassword1" class="btn btn-primary">
+                <input type="reset" value="Discard" id="discardResetPassword1" class="btn btn-default">
+            </form>
         </div>
     </div>
 
@@ -81,20 +98,19 @@
                            required>
                 </div>
                 <input type="submit" value="Save" id="saveChangePassword" class="btn btn-warning" disabled>
-                <input type="reset" value="Discard" id="discardChangePassword" class="btn btn-info">
+                <input type="reset" value="Discard" id="discardChangePassword" class="btn btn-info"><br/>
+                <input type="reset" id="resetPassword" value="forgotten your password?" class="btn btn-default btn-xs">
             </form>
         </div>
-        <div id="resetPasswordContainer">
-            <br/>
-            <label for="resetPassword">Click to reset your password:</label><br/>
-            <button id="resetPassword" class="btn btn-primary">Reset Password</button>
-        </div>
         <div id="resetPasswordForm" style="display: none">
-        <br/>
-        <form name="signInForm" action="/email/send" method="get">
-            <label for="saveResetPassword">Are you sure you want to reset your password?</label><br/>
-            <input type="submit" value="Yes" id="saveResetPassword" class="btn btn-primary">
-            <input type="reset" value="Nope" id="discardResetPassword" class="btn btn-default">
+        <form name="resetPasswordForm" action="/email/send" method="post">
+            <div class="form-group">
+                <label for="emailReset">Email to send temporary password:</label>
+                <input type="email" name="emailReset" class="form-control" id="emailReset" minlength="6"
+                       maxlength="32" required value=<%=user.email%>>
+            </div>
+            <input type="submit" value="Send" id="saveResetPassword" class="btn btn-primary">
+            <input type="reset" value="Discard" id="discardResetPassword" class="btn btn-default">
         </form>
         </div>
     </div>
@@ -113,7 +129,19 @@
                            required>
                 </div>
                 <input type="submit" value="Delete" class="btn btn-danger">
-                <input type="reset" value="Discard" id="discardDelete" class="btn btn-info">
+                <input type="reset" value="Discard" id="discardDelete" class="btn btn-info"><br/>
+                <input type="reset" id="resetPassword2" value="forgotten your password?" class="btn btn-default btn-xs">
+            </form>
+        </div>
+        <div id="resetPasswordForm2" style="display: none">
+            <form name="resetPasswordForm" action="/email/send" method="post">
+                <div class="form-group">
+                    <label for="emailReset2">Email to send temporary password:</label>
+                    <input type="email" name="emailReset" class="form-control" id="emailReset2" minlength="6"
+                           maxlength="32" required value=<%=user.email%>>
+                </div>
+                <input type="submit" value="Send" id="saveResetPassword2" class="btn btn-primary">
+                <input type="reset" value="Discard" id="discardResetPassword2" class="btn btn-default">
             </form>
         </div>
     </div>

@@ -23,32 +23,28 @@ const authController = () => {
     res.redirect('/');
   };
 
-  const unlinkLocal = (req, res) => {
-    const user = req.user;
-    user.username = undefined;
-    user.password = undefined;
-    user.save()
-      .then(() => {
-        res.redirect('/profile');
-      })
-      .catch(err => {
-        req.flash('error', 'Error Unlinking Local Account!');
-        res.redirect('/profile');
-      });
-  };
-
   const unlinkGithub = (req, res) => {
-    const user = req.user;
-    user.githubID = undefined;
-    user.githubName = undefined;
-    user.save()
-      .then(() => {
+    if(req.user) {
+      const user = req.user;
+      if (user.validPassword(req.body.unlinkGithubInput)) {
+        user.githubID = undefined;
+        user.githubName = undefined;
+        user.save()
+          .then(() => {
+            res.redirect('/profile');
+          })
+          .catch(err => {
+            req.flash('error', 'Error Unlinking Github Account!');
+            res.redirect('/profile');
+          });
+      } else {
+        req.flash('error', 'Incorrect password!');
         res.redirect('/profile');
-      })
-      .catch(err => {
-        req.flash('error', 'Error Unlinking Github Account!');
-        res.redirect('/profile');
-      });
+      }
+    } else {
+      req.flash('error', 'Permission Denied!');
+      res.redirect('/profile');
+    }
   };
 
   const githubAuthenticate = (req, res) => passport.authenticate('github')(req, res);
@@ -76,7 +72,6 @@ const authController = () => {
     githubAuthenticateCB: githubAuthenticateCB,
     githubAuthorize: githubAuthorize,
     githubAuthorizeCB: githubAuthorizeCB,
-    unlinkLocal: unlinkLocal,
     unlinkGithub: unlinkGithub,
   };
 };

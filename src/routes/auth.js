@@ -12,11 +12,8 @@ router.route('/signin')
 router.route('/logout')
   .get(authController.logout);
 
-router.route('/unlink/local')
-  .get(authController.unlinkLocal);
-
 router.route('/unlink/github')
-  .get(authController.unlinkGithub);
+  .post(authController.unlinkGithub);
 
 router.route('/github')
   .get(authController.githubAuthenticate);
