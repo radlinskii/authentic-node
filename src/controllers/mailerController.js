@@ -22,8 +22,14 @@ const mailerController = () => {
         from: `"Ignacy Radliński" <${process.env.mailUser}>`,
         to: req.user.email,
         subject: 'reset your password',
-        text: 'your new password is...',
-        html: `<p><b>Hello</b> ${req.user.username}</p><p>your new password is <b>${newPassword}</b></p>`,
+        text: `Hello ${req.user.username},
+                    Your new password  on authentic-node is ${newPassword}
+                    If you dont recognize this message pls ignore it. 
+                    *Do not answer, this is an automatic message.`,
+        html: `<p><b>Hello</b> ${req.user.username},</p>
+                    <p>Your new password  on <a href="https://authentic-node.herokuapp.com">authentic-node</a> is <b>${newPassword}</b></p>
+                    <p>If you dont recognize this message pls ignore it/</p>
+                    <p><small>*Do not answer, this is an automatic message/</small></p>`,
       };
 
       transporter.sendMail(message, (err, info) => {
@@ -73,8 +79,14 @@ const mailerController = () => {
               from: `"Ignacy Radliński" <${process.env.mailUser}>`,
               to: result.email,
               subject: 'reset your password',
-              text: 'your new password is...',
-              html: `<p><b>Hello</b> ${result.username}</p><p>your new password is <b>${newPassword}</b></p>`,
+              text: `Hello ${result.username},
+                    Your new password  on authentic-node is ${newPassword}
+                    If you dont recognize this message pls ignore it. 
+                    *Do not answer, this is an automatic message.`,
+              html: `<p><b>Hello</b> ${result.username},</p>
+                    <p>Your new password  on <a href="https://authentic-node.herokuapp.com">authentic-node</a> is <b>${newPassword}</b></p>
+                    <p>If you dont recognize this message pls ignore it/</p>
+                    <p><small>*Do not answer, this is an automatic message/</small></p>`,
             };
             transporter.sendMail(message, (err, info) => {
               if (err) {
