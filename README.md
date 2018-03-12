@@ -4,7 +4,8 @@ Deployed to Heroku at
 https://authentic-node.herokuapp.com/
 --
 
-## Current features:
+## features:
+- [ ] *updating* email address
 - [x] *resetting* forgotten password by sending an email with a new the one.
 - [x] *deleting* the account.
 - [x] *changing* local password.
