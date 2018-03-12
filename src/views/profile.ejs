@@ -84,14 +84,19 @@
                 <input type="reset" value="Discard" id="discardChangePassword" class="btn btn-info">
             </form>
         </div>
-        <form name="signInForm" action="/email/send" method="post">
-            <div class="form-group">
-                <label for="emailReset">Email to send temporary password:</label>
-                <input type="email" name="emailReset" class="form-control" id="emailReset" minlength="6"
-                       maxlength="32" value="<%=user.email%>" required>
-            </div>
-            <input type="submit" value="Reset" class="btn btn-primary">
+        <div id="resetPasswordContainer">
+            <br/>
+            <label for="resetPassword">Click to reset your password:</label><br/>
+            <button id="resetPassword" class="btn btn-primary">Reset Password</button>
+        </div>
+        <div id="resetPasswordForm" style="display: none">
+        <br/>
+        <form name="signInForm" action="/email/send" method="get">
+            <label for="saveResetPassword">Are you sure you want to reset your password?</label><br/>
+            <input type="submit" value="Yes" id="saveResetPassword" class="btn btn-primary">
+            <input type="reset" value="Nope" id="discardResetPassword" class="btn btn-default">
         </form>
+        </div>
     </div>
     <div class="col col-md-4">
         <div id="deleteAccountContainer">

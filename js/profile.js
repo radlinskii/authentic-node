@@ -22,6 +22,18 @@ if(document.getElementById('discardChangePassword'))
     document.getElementById('changePasswordContainer').style.display = 'block';
   });
 
+if(document.getElementById('resetPassword'))
+  document.getElementById('resetPassword').addEventListener('click', () => {
+    document.getElementById('resetPasswordContainer').style.display = 'none';
+    document.getElementById('resetPasswordForm').style.display = 'block';
+  });
+
+if(document.getElementById('discardResetPassword'))
+  document.getElementById('discardResetPassword').addEventListener('click', () => {
+    document.getElementById('resetPasswordForm').style.display = 'none';
+    document.getElementById('resetPasswordContainer').style.display = 'block';
+  });
+
 const checkPass = () => {
   const passOld = document.getElementById('passwordOldInput').value;
   const passNew = document.getElementById('passwordNewInput').value;
