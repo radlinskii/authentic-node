@@ -31,7 +31,7 @@ const mailerController = () => {
           req.flash('error', 'Error resetting password!');
           res.redirect('/profile');
         } else {
-          const user = result;
+          const user = req.user;
           user.password = user.generateHash(newPassword);
           user.save()
             .then(() => {
