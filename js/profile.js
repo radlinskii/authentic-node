@@ -12,10 +12,10 @@ toogleOnClick('changePassword', 'changePasswordContainer', 'changePasswordForm')
 toogleOnClick('discardChangePassword', 'changePasswordForm','changePasswordContainer');
 toogleOnClick('resetPassword', 'changePasswordForm','resetPasswordForm');
 toogleOnClick('discardResetPassword', 'resetPasswordForm', 'changePasswordForm');
-toogleOnClick('resetPassword2', 'deleteAccountForm', 'resetPasswordForm');
+toogleOnClick('resetPassword2', 'deleteAccountForm', 'resetPasswordForm2');
 toogleOnClick('discardResetPassword2', 'resetPasswordForm2', 'deleteAccountForm');
 toogleOnClick('unlinkGithubBtn', 'unlinkGithubContainer', 'unlinkGithubForm');
-toogleOnClick('discardUnlinkGithubBtn', 'unlinkGithubForm', 'unlinkGithubContainer');
+toogleOnClick('discardUnlinkGithub', 'unlinkGithubForm', 'unlinkGithubContainer');
 toogleOnClick('resetPassword1', 'unlinkGithubForm', 'resetPasswordForm1');
 toogleOnClick('discardResetPassword1', 'resetPasswordForm1', 'unlinkGithubForm');
 
