@@ -16,12 +16,20 @@ module.exports = (passport) => {
         .then(result => {
           if (result) return done(null, result);
           else {
-            const user = new User();
-            user._id = new mongoose.Types.ObjectId();
-            user.githubID = profile.id;
-            user.githubName = profile.displayName;
-            user.email = profile.emails[0].value;
-            user.save(() => done(null, user));
+            User.find({ email: profile.emails[0].value, })
+              .then(results => {
+                if(!results.length){
+                  const user = new User();
+                  user._id = new mongoose.Types.ObjectId();
+                  user.githubID = profile.id;
+                  user.githubName = profile.displayName;
+                  user.email = profile.emails[0].value;
+                  user.save()
+                    .then(() => done(null, user));
+                } else {
+                  return done(null, false, { message: 'Your github email is already used', });
+                }
+              });
           }
         })
         .catch(err => done(err, false, { message: 'Database error.', }));
@@ -33,7 +41,8 @@ module.exports = (passport) => {
             const user = req.user;
             user.githubID = profile.id;
             user.githubName = profile.displayName;
-            user.save(() => done(null, user));
+            user.save()
+              .then(() => done(null, user));
           }
         })
         .catch(err => done(err, false, { message: 'Database error.', }));
