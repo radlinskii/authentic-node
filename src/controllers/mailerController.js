@@ -26,27 +26,27 @@ const mailerController = () => {
         html: `<p><b>Hello</b> ${req.user.username}</p><p>your new password is <b>${newPassword}</b></p>`,
       };
 
-      const user = req.user;
-      user.password = user.generateHash(newPassword);
-      user.save()
-        .then(() => {
-          transporter.sendMail(message, (err, info) => {
-            if (err) {
-              req.flash('error', 'Error resetting password!');
-              res.redirect('/profile');
-            } else {
-              req.flash('success', 'New password send to your mail');
-              res.redirect('/profile');
-            }
-          });
-        })
-        .catch(err => {
+      transporter.sendMail(message, (err, info) => {
+        if (err) {
           req.flash('error', 'Error resetting password!');
           res.redirect('/profile');
-        });
+        } else {
+          const user = result;
+          user.password = user.generateHash(newPassword);
+          user.save()
+            .then(() => {
+              req.flash('success', 'New password send to your mail');
+              res.redirect('/profile');
+            })
+            .catch(err => {
+              req.flash('error', 'Error resetting password!');
+              res.redirect('/profile');
+            });
+        }
+      });
     } else {
       req.flash('error', 'Permission Denied');
-      res.redirect('/');
+      res.redirect('/profile');
     }
   };
 
@@ -76,21 +76,24 @@ const mailerController = () => {
               text: 'your new password is...',
               html: `<p><b>Hello</b> ${result.username}</p><p>your new password is <b>${newPassword}</b></p>`,
             };
-
-            const user = result;
-            user.password = user.generateHash(newPassword);
-            user.save()
-              .then(() => {
-                transporter.sendMail(message, (err, info) => {
-                  if (err) {
-                    req.flash('error', 'Error resetting password!');
-                    res.redirect('/');
-                  } else {
+            transporter.sendMail(message, (err, info) => {
+              if (err) {
+                req.flash('error', 'Error resetting password!');
+                res.redirect('/');
+              } else {
+                const user = result;
+                user.password = user.generateHash(newPassword);
+                user.save()
+                  .then(() => {
                     req.flash('success', 'New password send to your mail');
                     res.redirect('/');
-                  }
-                });
-              });
+                  })
+                  .catch(err => {
+                    req.flash('error', 'Error resetting password!');
+                    res.redirect('/');
+                  });
+              }
+            });
           } else {
             req.flash('error', 'You have to set a password to be able to reset it!');
             res.redirect('/');
