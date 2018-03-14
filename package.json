@@ -45,6 +45,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "dotenv": "^5.0.1",
-    "eslint": "^4.18.1"
+    "eslint": "^4.18.1",
+    "mocha": "^5.0.4"
   }
 }
