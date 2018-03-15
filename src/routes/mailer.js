@@ -9,5 +9,4 @@ mailerRouter.route('/send')
 mailerRouter.route('/reset')
   .post(mailerController.reset);
 
-
 module.exports = mailerRouter;

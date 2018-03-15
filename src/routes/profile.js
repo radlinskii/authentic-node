@@ -23,5 +23,4 @@ profileRouter.route('/emailchange')
 profileRouter.route('/connect')
   .post(profileController.postConnect);
 
-
 module.exports = profileRouter;
