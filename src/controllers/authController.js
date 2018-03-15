@@ -1,11 +1,6 @@
 import passport from 'passport/lib/index';
 
 const authController = () => {
-  const middleware = (req, res, next) => {
-    if (!req.isAuthenticated()) res.redirect('/');
-    else next();
-  };
-
   const postRegister = (req, res) => passport.authenticate('local-signup', {
     successRedirect: '/',
     failureRedirect: '/',
@@ -65,7 +60,6 @@ const authController = () => {
   return {
     postRegister: postRegister,
     postLogin: postLogin,
-    middleware: middleware,
     logout: logout,
     githubAuthenticate: githubAuthenticate,
     githubAuthenticateCB: githubAuthenticateCB,
