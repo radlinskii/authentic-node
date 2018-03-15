@@ -105,6 +105,7 @@ const todoController = () => {
     postTodo: postTodo,
     deleteTodoById: deleteTodoById,
     editTodoById: editTodoById,
+    addZeros: addZeros,
   };
 };
 

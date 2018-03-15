@@ -4,10 +4,14 @@
   "description": "node app with authentication feature",
   "main": "lib/server.js",
   "scripts": {
-    "prestart": "babel src -d lib & babel js -d public/js",
+    "prebuild": "babel src -d lib",
+    "build": "babel js -d public/js",
+    "postbuild": "babel test-src -d test",
+    "prestart": "npm run build",
     "start": "node-sass sass/main.sass public/style.css",
     "poststart": "node ./lib/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "npm run build",
+    "test": "mocha './test/**/*.js'"
   },
   "repository": {
     "type": "git",
