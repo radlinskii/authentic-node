@@ -1,5 +1,5 @@
-import User from '../models/user';
-import Todo from '../models/todo';
+import User from '../models/User';
+import Todo from '../models/Todo';
 import passport from 'passport/lib/index';
 import validator from 'validator';
 

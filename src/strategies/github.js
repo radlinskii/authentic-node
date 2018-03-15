@@ -1,6 +1,6 @@
 import { Strategy as GithubStrategy, } from 'passport-github';
 import mongoose from 'mongoose';
-import User from '../models/user';
+import User from '../models/User';
 
 module.exports = (passport) => {
   passport.use('github', new GithubStrategy({

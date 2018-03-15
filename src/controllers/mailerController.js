@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import nodemailer from 'nodemailer';
-import User from '../models/user';
+import User from '../models/User';
 
 const mailerController = () => {
   const send = (req, res) => {

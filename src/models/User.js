@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
   password: String,
   githubID: String,
   githubName: String,
-  githubAvatarUrl: String,
 });
 
 userSchema.methods.generateHash = password => bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);

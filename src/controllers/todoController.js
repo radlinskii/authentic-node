@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Todo from '../models/todo';
+import Todo from '../models/Todo';
 
 const todoController = () => {
   const middleware = (req, res, next) => {
