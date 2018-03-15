@@ -26,9 +26,9 @@ https://authentic-node.herokuapp.com/
 * **passport**
 * **mongodb**
 * **oauth**
-* **mocha**
 * **nodemailer**
 * mongoose
+* mocha
 * bcrypt
 * ejs
 * sass
