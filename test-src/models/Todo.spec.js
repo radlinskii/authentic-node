@@ -1,16 +1,22 @@
 import Todo from '../../lib/models/Todo';
 import mongoose from 'mongoose';
 import { should, } from 'chai';
+
 should();
 
 describe('Todo Model', function () {
-  describe('on creation', function () {
-    let todo = {};
-    const id = new mongoose.Types.ObjectId();
-    before(function () {
-      todo = new Todo({ _id: id, content: 'test', authorUsername: 'testUser', author: id, date: 'date', });
+  let todo = {};
+  const id = new mongoose.Types.ObjectId();
+  beforeEach(function () {
+    todo = new Todo({
+      _id: id,
+      content: 'test',
+      authorUsername: 'testUser',
+      author: id, date: 'date',
     });
-    todo = new Todo({ _id: id, content: 'test', authorUsername: 'testUser', author: id, date: 'date', });
+  });
+  describe('on creation', function () {
+
     it('has a valid id', function () {
       todo._id.should.equal(id);
     });

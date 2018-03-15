@@ -1,13 +1,21 @@
 import User from '../../lib/models/User';
 import mongoose from 'mongoose';
 import { should, } from 'chai';
+
 should();
 
 describe('User Model', function () {
   let user = {};
   const id = new mongoose.Types.ObjectId();
   beforeEach(function () {
-    user = new User({ _id: id, username: 'test', email: 'test', password: 'test', githubID: 'test', githubName: 'test', });
+    user = new User({
+      _id: id,
+      username: 'test',
+      email: 'test',
+      password: 'test',
+      githubID: 'test',
+      githubName: 'test',
+    });
   });
   describe('on creation', function () {
     it('has a valid id', function () {
