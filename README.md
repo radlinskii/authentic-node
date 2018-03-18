@@ -21,6 +21,21 @@ https://authentic-node.herokuapp.com/
 2. **npm start** <- transpiling & starting the app
 --
 
+### To run the server on your local machine you need to initialize in .env file following variables 
+```
+PORT
+NODE_ENV
+DatabaseURL
+githubClientID
+githubClientSecret
+mailPassword
+mailPort
+mailSecure
+mailService
+mailTls
+mailUser
+```
+
 ## this app is using
 * **express**
 * **passport**
