@@ -27,7 +27,7 @@ describe('TodoController', function () {
       next = sinon.spy();
     });
     it('should call next if authenticated', function () {
-      const isAuthenticated = sinon.stub(req, 'isAuthenticated').returns('true');
+      const isAuthenticated = sinon.stub(req, 'isAuthenticated').returns(true);
       todoController.middleware(req, res, next);
       next.calledOnce.should.be.true;
       isAuthenticated.calledOnce.should.be.true;
